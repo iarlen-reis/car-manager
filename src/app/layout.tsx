@@ -1,12 +1,14 @@
-import Header from '@/components/Header/Header'
 import './globals.css'
-import { Inter } from 'next/font/google'
 import React from 'react'
+import Header from '@/components/Header/Header'
+import { AppThemeProvider } from '@/contexts/ThemeContext'
+import ContainerGlobal from '@/components/ContainerGlobal/ContainerGlobal'
 
+import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'CarDrivers',
+  title: 'Car manager',
   description: 'Faça o gerenciamento dos seus veículos.',
 }
 
@@ -18,8 +20,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <Header />
-        {children}
+        <AppThemeProvider>
+          <ContainerGlobal>
+            <Header />
+            {children}
+          </ContainerGlobal>
+        </AppThemeProvider>
       </body>
     </html>
   )
