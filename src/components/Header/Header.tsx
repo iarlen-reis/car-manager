@@ -1,6 +1,5 @@
 'use client'
-import { Box, Container } from '@mui/material'
-import { grey } from '@mui/material/colors'
+import { Box, Button } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import React, { useState } from 'react'
@@ -17,26 +16,19 @@ const Header = () => {
     setIsOpen(true)
   }
   return (
-    <Box
-      component="div"
-      height={80}
-      sx={{
-        backgroundColor: grey[800],
-        display: 'flex',
-        alignItems: 'center',
-      }}
-    >
-      <Container
-        maxWidth="xl"
-        sx={{ display: 'flex', alignItems: 'center', gap: 2 }}
+    <Box width="100%" display="flex" alignItems="center" height={80}>
+      <Box
+        width="100%"
+        maxWidth={1470}
+        display="flex"
+        alignItems="center"
+        margin="0 auto"
+        gap={2}
       >
-        <Box onClick={handleOpenDrawer} sx={{ width: 'fit-content' }}>
-          <MenuIcon
-            sx={{ cursor: 'pointer', color: grey[50], fontSize: '30px' }}
-          />
-        </Box>
-        <img src="/logo.png" alt="" width={150} />
-      </Container>
+        <Button color="primary" onClick={handleOpenDrawer}>
+          <MenuIcon fontSize="large" color="secondary" />
+        </Button>
+      </Box>
       <DrawerAside isOpen={isOpen} handleCloseDrawer={handleCloseDrawer} />
     </Box>
   )
