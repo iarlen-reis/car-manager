@@ -3,6 +3,7 @@ import { lightBlue, deepOrange } from '@mui/material/colors'
 
 export const DarkTheme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       main: deepOrange[700],
       dark: deepOrange[800],
