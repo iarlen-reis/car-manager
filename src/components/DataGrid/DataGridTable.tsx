@@ -1,5 +1,5 @@
 'use client'
-import { Box, Button, Paper } from '@mui/material'
+import { Box, Button, Paper, CircularProgress } from '@mui/material'
 import { DataGrid, GridCellParams } from '@mui/x-data-grid'
 
 import React from 'react'
@@ -9,7 +9,8 @@ import SearchIcon from '@mui/icons-material/Search'
 
 interface IDataGridTableProps {
   columns: any[]
-  rows: Array<Record<string, number | string>>
+  rows: any[]
+  loading: boolean
   handleShow: (id: number) => void
   handleDelete: (id: number) => void
 }
@@ -19,6 +20,7 @@ const DataGridTable = ({
   handleDelete,
   columns,
   rows,
+  loading,
 }: IDataGridTableProps) => {
   columns.push({
     field: 'show',
@@ -63,8 +65,21 @@ const DataGridTable = ({
   })
 
   return (
-    <Box component={Paper} width="100%" height={490}>
-      <DataGrid columns={columns} rows={rows} />
+    <Box
+      component={Paper}
+      width="100%"
+      height={490}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <>
+        {!loading ? (
+          <DataGrid columns={columns} rows={rows} />
+        ) : (
+          <CircularProgress size={30} color="secondary" />
+        )}
+      </>
     </Box>
   )
 }
