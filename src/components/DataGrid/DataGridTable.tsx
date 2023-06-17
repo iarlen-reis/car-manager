@@ -1,6 +1,7 @@
 'use client'
 import { Box, Button, Paper, CircularProgress } from '@mui/material'
 import { DataGrid, GridCellParams } from '@mui/x-data-grid'
+import { v4 as uuidv4 } from 'uuid'
 
 import React from 'react'
 
@@ -9,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search'
 
 interface IDataGridTableProps {
   columns: any[]
-  rows: any[]
+  rows: any[] | null
   loading: boolean
   handleShow: (id: number) => void
   handleDelete: (id: number) => void
@@ -22,7 +23,12 @@ const DataGridTable = ({
   rows,
   loading,
 }: IDataGridTableProps) => {
-  columns.push({
+  const updatedColumns = columns.map((column) => ({
+    ...column,
+    key: uuidv4(),
+  }))
+
+  updatedColumns.push({
     field: 'show',
     headerName: 'Exibir',
     width: 100,
@@ -41,9 +47,10 @@ const DataGridTable = ({
         <SearchIcon color="secondary" />
       </Button>
     ),
+    key: uuidv4(),
   })
 
-  columns.push({
+  updatedColumns.push({
     field: 'delete',
     headerName: 'Deletar',
     width: 100,
@@ -62,6 +69,7 @@ const DataGridTable = ({
         <DeleteIcon color="secondary" />
       </Button>
     ),
+    key: uuidv4(),
   })
 
   return (
@@ -74,8 +82,8 @@ const DataGridTable = ({
       justifyContent="center"
     >
       <>
-        {!loading ? (
-          <DataGrid columns={columns} rows={rows} />
+        {!loading && rows !== null ? (
+          <DataGrid columns={updatedColumns} rows={rows} />
         ) : (
           <CircularProgress size={30} color="secondary" />
         )}
