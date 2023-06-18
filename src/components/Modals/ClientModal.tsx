@@ -6,9 +6,12 @@ import {
   Modal,
   TextField,
   Typography,
+  CircularProgress,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TwoInput } from '../TwoInput/TwoInput'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { api } from '@/utils/api'
 
 interface IModalProps {
   isOpen: boolean
@@ -16,7 +19,42 @@ interface IModalProps {
   client?: number | null
 }
 
+interface IClient {
+  nome: string
+  numeroDocumento: string
+  tipoDocumento: string
+  cidade: string
+  uf: string
+  bairro: string
+  logradouro: string
+  numero: string
+}
+
 const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
+  const queryClient = useQueryClient()
+
+  const createClient = useMutation(
+    (client: IClient) => api.post('/cliente', client),
+    {
+      onSuccess: (data, variables) => {
+        const client = JSON.parse(data.config.data)
+
+        console.log(client)
+
+        const clientOlds = queryClient.getQueryData<IClient[]>(['clients'])
+
+        if (clientOlds) {
+          const newClients = [
+            ...clientOlds,
+            { ...client, id: clientOlds.length },
+          ]
+
+          queryClient.setQueryData(['clients'], newClients)
+        }
+      },
+    },
+  )
+
   const [name, setName] = useState<string>('')
   const [document, setDocument] = useState<string>('')
   const [documentType, setdocumentType] = useState<string>('')
@@ -29,18 +67,20 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
   const handleCreateClient = (event: FormEvent) => {
     event.preventDefault()
 
-    const Client = {
+    const clientData = {
       numeroDocumento: document,
       tipoDocumento: documentType,
       logradouro: publicPlace,
       numero: numberHome,
       cidade: city,
-      name,
+      nome: name,
       uf,
       bairro: neighborhood,
     }
 
-    console.log(Client)
+    createClient.mutate(clientData)
+
+    handleCloseModal()
   }
 
   return (
@@ -128,8 +168,18 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
         </Box>
         {!client ? (
           <FormControl>
-            <Button variant="contained" color="secondary" type="submit">
-              <Typography>Criar cliente</Typography>
+            <Button
+              sx={{ padding: 1 }}
+              variant="contained"
+              color="secondary"
+              type="submit"
+              disabled={createClient.isLoading}
+            >
+              {createClient.isLoading ? (
+                <CircularProgress size={15} color="secondary" />
+              ) : (
+                <Typography>Criar cliente</Typography>
+              )}
             </Button>
           </FormControl>
         ) : (
