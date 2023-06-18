@@ -23,8 +23,8 @@ interface IClient {
 
 const Cliente = () => {
   const theme = useTheme()
-  const [selectedClient, setSelectedClient] = useState<null | number>(null)
   const [openModal, setOpenModal] = useState(false)
+  const [clientSearchData, setClientSearchData] = useState<IClient | null>(null)
 
   const queryClient = useQueryClient()
 
@@ -37,6 +37,7 @@ const Cliente = () => {
     },
     {
       staleTime: 1000 * 60,
+      refetchOnWindowFocus: true,
     },
   )
 
@@ -61,14 +62,28 @@ const Cliente = () => {
     },
   )
 
-  const handleStateModal = () => {
-    setOpenModal(!openModal)
-    setSelectedClient(null)
-  }
+  const { mutate: clientSearch } = useMutation(
+    (id: number) => {
+      return api.get<IClient>(`/cliente/${id}`)
+    },
+    {
+      onSuccess: (data) => {
+        if (data.data) {
+          setClientSearchData(data.data)
 
-  const handleShow = (clientID: number) => {
-    setSelectedClient(clientID)
-    setOpenModal(true)
+          console.log(data.data.id)
+
+          setOpenModal(true)
+        } else {
+          setClientSearchData(null)
+        }
+      },
+    },
+  )
+
+  const handleStateModal = () => {
+    setClientSearchData(null)
+    setOpenModal(!openModal)
   }
 
   return (
@@ -107,7 +122,7 @@ const Cliente = () => {
       </Box>
 
       <DataGridTable
-        handleShow={handleShow}
+        handleShow={clientSearch}
         deleteMutation={deleteClient.mutate}
         columns={clientColumns}
         rows={clientes}
@@ -117,7 +132,7 @@ const Cliente = () => {
       <ClientModal
         isOpen={openModal}
         handleCloseModal={handleStateModal}
-        client={selectedClient}
+        client={clientSearchData}
       />
     </Box>
   )
