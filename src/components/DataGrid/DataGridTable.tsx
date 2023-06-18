@@ -1,5 +1,5 @@
 'use client'
-import { Box, Button, Paper, CircularProgress } from '@mui/material'
+import { Box, Button, Paper, CircularProgress, Typography } from '@mui/material'
 import { DataGrid, GridCellParams } from '@mui/x-data-grid'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -28,9 +28,29 @@ const DataGridTable = ({
     key: uuidv4(),
   }))
 
+  updatedColumns[1].renderCell = (params: GridCellParams) => (
+    <Button
+      onClick={() => handleShow(params.row.id)}
+      color="secondary"
+      sx={{
+        width: '100%',
+        height: '100%',
+      }}
+    >
+      <Typography
+        variant="overline"
+        width="100%"
+        height="100%"
+        textAlign="start"
+      >
+        {params.value as string}
+      </Typography>
+    </Button>
+  )
+
   updatedColumns.push({
     field: 'show',
-    headerName: 'Exibir',
+    headerName: 'EXIBIR',
     width: 100,
     renderCell: (params: GridCellParams) => (
       <Button
@@ -44,15 +64,14 @@ const DataGridTable = ({
         }}
         onClick={() => handleShow(params.row.id)}
       >
-        <SearchIcon color="secondary" />
+        <SearchIcon color="success" />
       </Button>
     ),
-    key: uuidv4(),
   })
 
   updatedColumns.push({
     field: 'delete',
-    headerName: 'Deletar',
+    headerName: 'DELETAR',
     width: 100,
     renderCell: (params: GridCellParams) => (
       <Button
@@ -66,10 +85,9 @@ const DataGridTable = ({
         }}
         onClick={() => deleteMutation(params.row.id)}
       >
-        <DeleteIcon color="secondary" />
+        <DeleteIcon color="error" />
       </Button>
     ),
-    key: uuidv4(),
   })
 
   return (
