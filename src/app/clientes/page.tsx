@@ -1,13 +1,12 @@
 'use client'
 import React, { useState } from 'react'
-import { Box, Button, Paper, Typography, useTheme } from '@mui/material'
-
-import AddIcon from '@mui/icons-material/Add'
+import { Box } from '@mui/material'
+import MenuTools from '@/components/MenuTools/MenuTools'
 import ClientModal from '@/components/Modals/ClientModal'
 import DataGridTable from '@/components/DataGrid/DataGridTable'
-import { clientColumns } from '@/utils/columnsDataGrid'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/utils/api'
+import useColumns from '@/hooks/useColumns'
 
 interface IClient {
   id: number
@@ -22,9 +21,9 @@ interface IClient {
 }
 
 const Cliente = () => {
-  const theme = useTheme()
   const [openModal, setOpenModal] = useState(false)
   const [clientSearchData, setClientSearchData] = useState<IClient | null>(null)
+  const { clientColumns } = useColumns()
 
   const queryClient = useQueryClient()
 
@@ -71,8 +70,6 @@ const Cliente = () => {
         if (data.data) {
           setClientSearchData(data.data)
 
-          console.log(data.data.id)
-
           setOpenModal(true)
         } else {
           setClientSearchData(null)
@@ -81,45 +78,18 @@ const Cliente = () => {
     },
   )
 
-  const handleStateModal = () => {
+  const handleOpenModal = () => {
     setClientSearchData(null)
     setOpenModal(!openModal)
   }
 
   return (
     <Box width="100%" display="flex" flexDirection="column" gap={3}>
-      <Box
-        component={Paper}
-        width="100%"
-        height={theme.spacing(7)}
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        paddingX={2}
-        paddingY={1}
-      >
-        <Box display="flex" alignItems="center" gap={2}>
-          <Box>
-            <Typography variant="overline" color="blue">
-              Clientes Cadastrados: 4
-            </Typography>
-          </Box>
-          <Box>
-            <Typography variant="overline" color="red">
-              Clientes Irregulares: 4
-            </Typography>
-          </Box>
-        </Box>
-        <Button
-          variant="contained"
-          color="secondary"
-          disableElevation
-          startIcon={<AddIcon />}
-          onClick={handleStateModal}
-        >
-          <Typography variant="button">criar cliente</Typography>
-        </Button>
-      </Box>
+      <MenuTools
+        handleOpenModal={handleOpenModal}
+        textButton="Novo cliente"
+        description="Página de cliente."
+      />
 
       <DataGridTable
         handleShow={clientSearch}
@@ -131,8 +101,9 @@ const Cliente = () => {
 
       <ClientModal
         isOpen={openModal}
-        handleCloseModal={handleStateModal}
+        handleCloseModal={handleOpenModal}
         client={clientSearchData}
+        deleteMutation={deleteClient.mutate}
       />
     </Box>
   )
