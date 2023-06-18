@@ -10,15 +10,15 @@ import SearchIcon from '@mui/icons-material/Search'
 
 interface IDataGridTableProps {
   columns: any[]
-  rows: any[] | null
+  rows: any[] | undefined
   loading: boolean
   handleShow: (id: number) => void
-  handleDelete: (id: number) => void
+  deleteMutation: (id: number) => void
 }
 
 const DataGridTable = ({
   handleShow,
-  handleDelete,
+  deleteMutation,
   columns,
   rows,
   loading,
@@ -64,7 +64,7 @@ const DataGridTable = ({
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={() => handleDelete(params.row.id)}
+        onClick={() => deleteMutation(params.row.id)}
       >
         <DeleteIcon color="secondary" />
       </Button>
@@ -82,7 +82,7 @@ const DataGridTable = ({
       justifyContent="center"
     >
       <>
-        {!loading && rows !== null ? (
+        {!loading && rows !== undefined ? (
           <DataGrid columns={updatedColumns} rows={rows} />
         ) : (
           <CircularProgress size={30} color="secondary" />
