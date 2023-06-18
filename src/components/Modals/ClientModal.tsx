@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, Modal, Typography, CircularProgress } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -6,12 +6,6 @@ import { api } from '@/utils/api'
 import FTextField from '../FTextField/FTextField'
 import FTwoTextFields from '../FTextField/FTwoTextFields'
 import { FormProvider, useForm } from 'react-hook-form'
-
-interface IModalProps {
-  isOpen: boolean
-  handleCloseModal: () => void
-  client?: number | null
-}
 
 interface IClient {
   nome: string
@@ -22,6 +16,13 @@ interface IClient {
   bairro: string
   logradouro: string
   numero: string
+  id: number
+}
+
+interface IModalProps {
+  isOpen: boolean
+  handleCloseModal: () => void
+  client: IClient | null
 }
 
 const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
@@ -49,13 +50,59 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
     },
   )
 
+  const updateClient = useMutation(
+    (updatedClient: IClient) =>
+      api.put(`/cliente/${updatedClient.id}`, updatedClient),
+    {
+      onSuccess: (data, updatedClient) => {
+        const clientUpdated = JSON.parse(data.config.data)
+
+        queryClient.setQueryData<IClient[] | undefined>(
+          ['clients'],
+          (oldData) => {
+            if (oldData) {
+              return oldData.map((client: IClient) =>
+                client.id === clientUpdated.id ? clientUpdated : client,
+              )
+            }
+            return oldData
+          },
+        )
+      },
+    },
+  )
+
   const handleCreateClient = (data: IClient) => {
+    if (client && client.id) {
+      updateClient.mutate({ ...data, id: client.id })
+      methods.reset()
+      handleCloseModal()
+      return
+    }
+
     createClient.mutate(data)
+    methods.reset()
+    handleCloseModal()
 
     methods.reset()
 
     handleCloseModal()
   }
+
+  useEffect(() => {
+    if (client) {
+      methods.setValue('nome', client.nome)
+      methods.setValue('numeroDocumento', client.numeroDocumento)
+      methods.setValue('tipoDocumento', client.tipoDocumento)
+      methods.setValue('cidade', client.cidade)
+      methods.setValue('uf', client.uf)
+      methods.setValue('bairro', client.bairro)
+      methods.setValue('numero', client.numero)
+      methods.setValue('logradouro', client.logradouro)
+      return
+    }
+    methods.reset()
+  }, [client, methods])
 
   return (
     <Modal
@@ -133,18 +180,22 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
               rules={{ required: 'O campo é obrigatório.' }}
             />
           </Box>
-          {!createClient.isLoading ? (
-            <Button type="submit" variant="contained" color="secondary">
-              Adicionar
-            </Button>
-          ) : (
+          {!client ? (
             <Button
               type="submit"
               variant="contained"
               color="secondary"
-              disabled
+              disabled={!!client}
             >
-              <CircularProgress size={20} color="secondary" />
+              {createClient.isLoading ? (
+                <CircularProgress size={20} color="secondary" />
+              ) : (
+                'Adicionar'
+              )}
+            </Button>
+          ) : (
+            <Button type="submit" variant="contained" color="secondary">
+              Editar
             </Button>
           )}
         </form>
