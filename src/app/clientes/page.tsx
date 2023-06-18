@@ -4,24 +4,75 @@ import { Box, Button, Paper, Typography, useTheme } from '@mui/material'
 
 import AddIcon from '@mui/icons-material/Add'
 import ClientModal from '@/components/Modals/ClientModal'
+import DataGridTable from '@/components/DataGrid/DataGridTable'
+import { clientColumns } from '@/utils/columnsDataGrid'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { api } from '@/utils/api'
+
+interface IClient {
+  id: number
+  nome: string
+  numeroDocumento: string
+  tipoDocumento: string
+  cidade: string
+  uf: string
+  bairro: string
+  logradouro: string
+  numero: string
+}
 
 const Cliente = () => {
   const theme = useTheme()
   const [selectedClient, setSelectedClient] = useState<null | number>(null)
   const [openModal, setOpenModal] = useState(false)
 
+  const queryClient = useQueryClient()
+
+  const { data: clientes, isFetching } = useQuery(
+    ['clients'],
+    async () => {
+      const response = await api.get<IClient[] | undefined>('/cliente')
+
+      return response.data
+    },
+    {
+      staleTime: 1000 * 60,
+    },
+  )
+
+  const deleteClient = useMutation(
+    (id: number) => {
+      return api.delete(`Cliente/${id}`, {
+        data: { id },
+      })
+    },
+    {
+      onSuccess: (data, variables) => {
+        const parsedData = JSON.parse(data.config.data)
+        const id = parsedData.id
+        const oldClients = queryClient.getQueryData<IClient[]>(['clients'])
+
+        if (oldClients) {
+          const newClients = oldClients?.filter((client) => client.id !== id)
+
+          queryClient.setQueryData(['clients'], newClients)
+        }
+      },
+    },
+  )
+
   const handleStateModal = () => {
     setOpenModal(!openModal)
     setSelectedClient(null)
   }
 
-  const handleSelectClient = (clientID: number) => {
+  const handleShow = (clientID: number) => {
     setSelectedClient(clientID)
     setOpenModal(true)
   }
 
   return (
-    <Box width="100%">
+    <Box width="100%" display="flex" flexDirection="column" gap={3}>
       <Box
         component={Paper}
         width="100%"
@@ -54,7 +105,15 @@ const Cliente = () => {
           <Typography variant="button">criar cliente</Typography>
         </Button>
       </Box>
-      <Button onClick={() => handleSelectClient(1)}>Cliente 1</Button>
+
+      <DataGridTable
+        handleShow={handleShow}
+        deleteMutation={deleteClient.mutate}
+        columns={clientColumns}
+        rows={clientes}
+        loading={isFetching}
+      />
+
       <ClientModal
         isOpen={openModal}
         handleCloseModal={handleStateModal}
