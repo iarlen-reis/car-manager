@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Modal, Typography, CircularProgress } from '@mui/material'
+import {
+  Box,
+  Button,
+  Modal,
+  Typography,
+  CircularProgress,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/utils/api'
@@ -23,12 +31,31 @@ interface IModalProps {
   isOpen: boolean
   handleCloseModal: () => void
   client: IClient | null
+  deleteMutation: (id: number) => void
 }
 
-const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
+const ClientModal = ({
+  isOpen,
+  handleCloseModal,
+  client,
+  deleteMutation,
+}: IModalProps) => {
   const queryClient = useQueryClient()
+  const theme = useTheme()
 
   const methods = useForm<IClient>()
+
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'))
+
+  const fontSize = isSmall ? '10px' : isMedium ? '14px' : '18px'
+
+  const handleDeleteClient = () => {
+    if (client?.id) {
+      deleteMutation(client?.id)
+      handleCloseModal()
+    }
+  }
 
   const createClient = useMutation(
     (client: IClient) => api.post('/cliente', client),
@@ -112,13 +139,14 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 2,
       }}
     >
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(handleCreateClient)}
           style={{
-            background: '#FFF',
+            background: theme.palette.background.default,
             padding: 20,
             borderRadius: 5,
             display: 'flex',
@@ -126,6 +154,8 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
             gap: 15,
             maxWidth: 400,
             width: '100%',
+            border: '1px solid',
+            borderColor: theme.palette.secondary.main,
           }}
         >
           <Box
@@ -134,10 +164,10 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography variant="h1" fontSize={25}>
-              Novo cliente
+            <Typography fontSize={20} color={theme.palette.secondary.dark}>
+              Cadastrar cliente
             </Typography>
-            <Button variant="outlined" onClick={handleCloseModal}>
+            <Button variant="text" onClick={handleCloseModal}>
               <CloseIcon color="error" />
             </Button>
           </Box>
@@ -184,19 +214,56 @@ const ClientModal = ({ isOpen, handleCloseModal, client }: IModalProps) => {
             <Button
               type="submit"
               variant="contained"
-              color="secondary"
+              color="primary"
               disabled={!!client}
+              sx={{
+                height: '35px',
+              }}
             >
               {createClient.isLoading ? (
                 <CircularProgress size={20} color="secondary" />
               ) : (
-                'Adicionar'
+                <Typography
+                  color={theme.palette.primary.light}
+                  fontWeight={600}
+                  sx={{ fontSize }}
+                >
+                  Adicionar
+                </Typography>
               )}
             </Button>
           ) : (
-            <Button type="submit" variant="contained" color="secondary">
-              Editar
-            </Button>
+            <Box width="100%" display="flex" alignItems="center" gap={1}>
+              <Button
+                onClick={handleDeleteClient}
+                variant="contained"
+                color="error"
+                sx={{ width: '50%', minHeight: '35px' }}
+              >
+                <Typography
+                  color={theme.palette.primary.light}
+                  fontWeight={600}
+                  sx={{ fontSize }}
+                >
+                  Deletar
+                </Typography>
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ minHeight: '35px' }}
+              >
+                <Typography
+                  color={theme.palette.primary.light}
+                  fontWeight={600}
+                  sx={{ fontSize }}
+                >
+                  Editar
+                </Typography>
+              </Button>
+            </Box>
           )}
         </form>
       </FormProvider>
