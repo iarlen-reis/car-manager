@@ -3,8 +3,8 @@ import { Box, Button, Modal, Typography, CircularProgress } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/utils/api'
-import FTextField from '../formComponents/FTextField'
-import FTwoTextFields from '../formComponents/FTwoTextFields'
+import FTextField from '../FTextField/FTextField'
+import FTwoTextFields from '../FTextField/FTwoTextFields'
 import { FormProvider, useForm } from 'react-hook-form'
 
 interface IModalProps {
