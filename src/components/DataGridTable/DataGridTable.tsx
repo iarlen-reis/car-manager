@@ -1,5 +1,13 @@
 'use client'
-import { Box, Button, Paper, CircularProgress, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Paper,
+  CircularProgress,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from '@mui/material'
 import { DataGrid, GridCellParams } from '@mui/x-data-grid'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -18,6 +26,13 @@ const DataGridTable = ({
   rows,
   loading,
 }: IDataGridTableProps) => {
+  const { breakpoints } = useTheme()
+
+  const isSuperSmall = useMediaQuery(breakpoints.down('xs'))
+  const isSmall = useMediaQuery(breakpoints.down('sm'))
+  const isMedium = useMediaQuery(breakpoints.down('md'))
+  const isLarge = useMediaQuery(breakpoints.down('lg'))
+
   const updatedColumns = columns.map((column) => ({
     ...column,
     key: uuidv4(),
@@ -48,7 +63,7 @@ const DataGridTable = ({
   updatedColumns.push({
     field: 'show',
     headerName: 'EXIBIR',
-    width: 100,
+    flex: 1,
     renderCell: (params: GridCellParams) => (
       <Button
         variant="text"
@@ -71,7 +86,7 @@ const DataGridTable = ({
   updatedColumns.push({
     field: 'delete',
     headerName: 'DELETAR',
-    width: 100,
+    flex: 1,
     renderCell: (params: GridCellParams) => (
       <Button
         variant="text"
@@ -91,10 +106,30 @@ const DataGridTable = ({
     ),
   })
 
+  const columnsStartLarge = updatedColumns.slice(0, 4)
+  const columnsEndLarge = updatedColumns.slice(-2)
+
+  const columnsLarge = columnsStartLarge.concat(columnsEndLarge)
+
+  const columnsStartMedium = updatedColumns.slice(0, 3)
+  const columnsEndMedium = updatedColumns.slice(-2)
+
+  const columnsMedium = columnsStartMedium.concat(columnsEndMedium)
+
+  const columnsStartSmall = updatedColumns.slice(0, 1)
+  const columnsEndSmall = updatedColumns.slice(-2)
+
+  const columnsSmall = columnsStartSmall.concat(columnsEndSmall)
+
+  const columnStartSuperSmall = updatedColumns.slice(1, 2)
+  const columnsEndSuperSmall = updatedColumns.slice(-2)
+
+  const columnsSuperSmall = columnStartSuperSmall.concat(columnsEndSuperSmall)
+
+  console.log(columnsSuperSmall)
   return (
     <Box
       component={Paper}
-      width="100%"
       height={490}
       display="flex"
       alignItems="center"
@@ -102,7 +137,20 @@ const DataGridTable = ({
     >
       <>
         {!loading && rows !== undefined ? (
-          <DataGrid columns={updatedColumns} rows={rows} />
+          <DataGrid
+            columns={
+              isSuperSmall
+                ? columnsSuperSmall
+                : isSmall
+                ? columnsSmall
+                : isMedium
+                ? columnsMedium
+                : isLarge
+                ? columnsLarge
+                : updatedColumns
+            }
+            rows={rows}
+          />
         ) : (
           <CircularProgress size={30} color="secondary" />
         )}

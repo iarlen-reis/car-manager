@@ -5,14 +5,16 @@ import React from 'react'
 interface IClientColumns {
   field: string
   headerName: string
-  width: number
+  width?: number
+  flex?: number
   renderCell: (params: any) => React.JSX.Element
 }
 
 interface IDriverColumns {
   field: string
   headerName: string
-  width: number
+  width?: number
+  flex?: number
   renderCell: (params: any) => React.JSX.Element
 }
 
@@ -28,7 +30,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'id',
       headerName: 'ID',
-      width: 80,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography
           variant="overline"
@@ -42,7 +44,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'nome',
       headerName: 'NOME',
-      width: 150,
+      flex: 1,
       renderCell: (params: any) => (
         <Button onClick={() => console.log(params.row.id)} color="secondary">
           <Typography variant="overline">{params.value}</Typography>
@@ -52,7 +54,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'numeroDocumento',
       headerName: 'NÚMERO DO DOCUMENTO',
-      width: 170,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -62,7 +64,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'tipoDocumento',
       headerName: 'TIPO',
-      width: 80,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -72,7 +74,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'cidade',
       headerName: 'CIDADE',
-      width: 150,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -92,7 +94,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'bairro',
       headerName: 'BAIRRO',
-      width: 140,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -102,7 +104,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'logradouro',
       headerName: 'LOGRADOURO',
-      width: 150,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -125,7 +127,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'id',
       headerName: 'ID',
-      width: 140,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography
           variant="overline"
@@ -139,7 +141,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'nome',
       headerName: 'NOME',
-      width: 260,
+      flex: 1,
       renderCell: (params: any) => (
         <Button onClick={() => console.log(params.row.id)} color="secondary">
           <Typography variant="overline">{params.value}</Typography>
@@ -149,7 +151,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'numeroHabilitacao',
       headerName: 'Número de Habilitação',
-      width: 260,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -159,7 +161,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'catergoriaHabilitacao',
       headerName: 'Categoria',
-      width: 180,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
@@ -169,7 +171,7 @@ const useColumns = (): IUseColumns => {
     {
       field: 'vencimentoHabilitacao',
       headerName: 'Vencimento',
-      width: 250,
+      flex: 1,
       renderCell: (params: any) => (
         <Typography variant="overline" color={palette.secondary.dark}>
           {params.value}
