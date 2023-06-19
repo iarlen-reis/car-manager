@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField } from '@mui/material'
 import { useFormContext, Controller } from 'react-hook-form'
 
-import { FTextFieldProps } from '@/@types/components/IFTextField'
+import { FTextFieldProps } from '@/@types/components/IFTextFieldTypes'
 
 const FTextField: React.FC<FTextFieldProps> = ({
   name,
