@@ -13,7 +13,10 @@ import FTextField from '../FTextField/FTextField'
 import FTwoTextFields from '../FTextField/FTwoTextFields'
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { IClientProps, IClientModalProps } from '@/@types/clientModalTypes'
+import {
+  IClientProps,
+  IClientModalProps,
+} from '@/@types/modals/clientModalTypes'
 
 const ClientModal = ({
   isOpen,
@@ -31,7 +34,7 @@ const ClientModal = ({
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
-  const fontSize = isSmall ? '10px' : isMedium ? '14px' : '18px'
+  const fontSize = isSmall ? '14px' : isMedium ? '16px' : '18px'
 
   const handleCloseAndClearFields = () => {
     methods.reset()
@@ -107,7 +110,10 @@ const ClientModal = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography fontSize={20} color={theme.palette.secondary.dark}>
+              <Typography
+                fontSize={fontSize}
+                color={theme.palette.secondary.dark}
+              >
                 Cadastrar cliente
               </Typography>
               <Button variant="text" onClick={handleModal}>
@@ -159,9 +165,6 @@ const ClientModal = ({
                 variant="contained"
                 color="primary"
                 disabled={!!client}
-                sx={{
-                  height: '35px',
-                }}
               >
                 {isLoadingCreate ? (
                   <CircularProgress size={20} color="secondary" />
@@ -169,39 +172,35 @@ const ClientModal = ({
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
-                    sx={{ fontSize }}
                   >
                     Adicionar
                   </Typography>
                 )}
               </Button>
             ) : (
-              <Box width="100%" display="flex" alignItems="center" gap={1}>
+              <Box
+                width="100%"
+                display="flex"
+                alignItems="center"
+                justifyContent="right"
+                gap={1}
+              >
                 <Button
                   onClick={handleDeleteClient}
                   variant="contained"
                   color="error"
-                  sx={{ width: '50%', minHeight: '35px' }}
                 >
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
-                    sx={{ fontSize }}
                   >
                     Deletar
                   </Typography>
                 </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  sx={{ minHeight: '35px' }}
-                >
+                <Button type="submit" variant="contained" color="primary">
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
-                    sx={{ fontSize }}
                   >
                     Editar
                   </Typography>

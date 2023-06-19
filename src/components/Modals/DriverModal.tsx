@@ -35,7 +35,7 @@ const DriverModal = ({
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
-  const fontSize = isSmall ? '10px' : isMedium ? '14px' : '18px'
+  const fontSize = isSmall ? '14px' : isMedium ? '16px' : '18px'
 
   const handleCloseAndClearFields = () => {
     methods.reset()
@@ -111,7 +111,10 @@ const DriverModal = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography fontSize={20} color={theme.palette.secondary.dark}>
+              <Typography
+                fontSize={fontSize}
+                color={theme.palette.secondary.dark}
+              >
                 Cadastrar condutor
               </Typography>
               <Button variant="text" onClick={handleModal}>
@@ -154,32 +157,29 @@ const DriverModal = ({
                 </Typography>
               </Button>
             ) : (
-              <Box width="100%" display="flex" alignItems="center" gap={1}>
+              <Box
+                width="100%"
+                display="flex"
+                alignItems="center"
+                justifyContent="right"
+                gap={1}
+              >
                 <Button
                   onClick={() => deleteDriver(driver.id)}
                   variant="contained"
                   color="error"
-                  sx={{ width: '50%', minHeight: '35px' }}
                 >
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
-                    sx={{ fontSize }}
                   >
                     Deletar
                   </Typography>
                 </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  fullWidth
-                  sx={{ minHeight: '35px' }}
-                >
+                <Button type="submit" variant="contained" color="primary">
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
-                    sx={{ fontSize }}
                   >
                     Editar
                   </Typography>
