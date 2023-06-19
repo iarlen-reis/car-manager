@@ -9,8 +9,6 @@ import {
   useMediaQuery,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '@/utils/api'
 import FTextField from '../FTextField/FTextField'
 import FTwoTextFields from '../FTextField/FTwoTextFields'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -29,18 +27,23 @@ interface IClient {
 
 interface IModalProps {
   isOpen: boolean
-  handleCloseModal: () => void
+  isLoadingCreate: boolean
   client: IClient | null
-  deleteMutation: (id: number) => void
+  handleModal: () => void
+  createClient: (client: IClient) => void
+  updateClient: (client: IClient) => void
+  deleteClient: (id: number) => void
 }
 
 const ClientModal = ({
   isOpen,
-  handleCloseModal,
+  isLoadingCreate,
+  handleModal,
+  deleteClient,
+  createClient,
+  updateClient,
   client,
-  deleteMutation,
 }: IModalProps) => {
-  const queryClient = useQueryClient()
   const theme = useTheme()
 
   const methods = useForm<IClient>()
@@ -50,72 +53,31 @@ const ClientModal = ({
 
   const fontSize = isSmall ? '10px' : isMedium ? '14px' : '18px'
 
-  const handleDeleteClient = () => {
-    if (client?.id) {
-      deleteMutation(client?.id)
-      handleCloseModal()
-    }
+  const handleCloseAndClearFields = () => {
+    methods.reset()
+
+    handleModal()
   }
-
-  const createClient = useMutation(
-    (client: IClient) => api.post('/cliente', client),
-    {
-      onSuccess: (data, variables) => {
-        const client = JSON.parse(data.config.data)
-
-        const clientOlds = queryClient.getQueryData<IClient[]>(['clients'])
-
-        if (clientOlds) {
-          const newClients = [
-            ...clientOlds,
-            { ...client, id: clientOlds.length },
-          ]
-
-          queryClient.setQueryData(['clients'], newClients)
-        }
-      },
-    },
-  )
-
-  const updateClient = useMutation(
-    (updatedClient: IClient) =>
-      api.put(`/cliente/${updatedClient.id}`, updatedClient),
-    {
-      onSuccess: (data, updatedClient) => {
-        const clientUpdated = JSON.parse(data.config.data)
-
-        queryClient.setQueryData<IClient[] | undefined>(
-          ['clients'],
-          (oldData) => {
-            if (oldData) {
-              return oldData.map((client: IClient) =>
-                client.id === clientUpdated.id ? clientUpdated : client,
-              )
-            }
-            return oldData
-          },
-        )
-      },
-    },
-  )
 
   const handleCreateClient = (data: IClient) => {
     if (client && client.id) {
-      updateClient.mutate({ ...data, id: client.id })
+      updateClient({ ...data, id: client.id })
       methods.reset()
-      handleCloseModal()
+      handleCloseAndClearFields()
       return
     }
 
-    createClient.mutate(data)
+    createClient(data)
     methods.reset()
-    handleCloseModal()
-
-    methods.reset()
-
-    handleCloseModal()
+    handleCloseAndClearFields()
   }
 
+  const handleDeleteClient = () => {
+    if (client?.id) {
+      deleteClient(client?.id)
+      handleModal()
+    }
+  }
   useEffect(() => {
     if (client) {
       methods.setValue('nome', client.nome)
@@ -134,7 +96,7 @@ const ClientModal = ({
   return (
     <Modal
       open={isOpen}
-      onClose={handleCloseModal}
+      onClose={handleCloseAndClearFields}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -168,7 +130,7 @@ const ClientModal = ({
               <Typography fontSize={20} color={theme.palette.secondary.dark}>
                 Cadastrar cliente
               </Typography>
-              <Button variant="text" onClick={handleCloseModal}>
+              <Button variant="text" onClick={handleModal}>
                 <CloseIcon color="error" />
               </Button>
             </Box>
@@ -221,7 +183,7 @@ const ClientModal = ({
                   height: '35px',
                 }}
               >
-                {createClient.isLoading ? (
+                {isLoadingCreate ? (
                   <CircularProgress size={20} color="secondary" />
                 ) : (
                   <Typography
