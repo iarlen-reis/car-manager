@@ -18,9 +18,17 @@ interface IDriverColumns {
   renderCell: (params: any) => React.JSX.Element
 }
 
+interface IVehiclesColumns {
+  field: string
+  headerName: string
+  flex: number
+  renderCell: (params: any) => React.JSX.Element
+}
+
 interface IUseColumns {
   clientColumns: IClientColumns[]
   driverColumns: IDriverColumns[]
+  vehiclesColumns: IVehiclesColumns[]
 }
 
 const useColumns = (): IUseColumns => {
@@ -179,7 +187,64 @@ const useColumns = (): IUseColumns => {
       ),
     },
   ]
-  return { clientColumns, driverColumns }
+
+  const vehiclesColumns = [
+    {
+      field: 'id',
+      headerName: 'ID',
+      flex: 1,
+      renderCell: (params: any) => (
+        <Typography
+          variant="overline"
+          color={palette.secondary.dark}
+          fontWeight="bold"
+        >
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
+      field: 'placa',
+      headerName: 'PLACA',
+      flex: 1,
+      renderCell: (params: any) => (
+        <Button onClick={() => console.log(params.row.id)} color="secondary">
+          <Typography variant="overline">{params.value}</Typography>
+        </Button>
+      ),
+    },
+    {
+      field: 'marcaModelo',
+      headerName: 'MARCA/MODELO',
+      flex: 1,
+      renderCell: (params: any) => (
+        <Typography variant="overline" color={palette.secondary.dark}>
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
+      field: 'anoFabricacao',
+      headerName: 'ANO DE FABRICAÇÃO',
+      flex: 1,
+      renderCell: (params: any) => (
+        <Typography variant="overline" color={palette.secondary.dark}>
+          {params.value}
+        </Typography>
+      ),
+    },
+    {
+      field: 'kmAtual',
+      headerName: 'KM ATUAL',
+      flex: 1,
+      renderCell: (params: any) => (
+        <Typography variant="overline" color={palette.secondary.dark}>
+          {params.value}
+        </Typography>
+      ),
+    },
+  ]
+  return { clientColumns, driverColumns, vehiclesColumns }
 }
 
 export default useColumns
