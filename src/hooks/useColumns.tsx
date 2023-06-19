@@ -54,7 +54,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'NOME',
       flex: 1,
       renderCell: (params: any) => (
-        <Button onClick={() => console.log(params.row.id)} color="secondary">
+        <Button color="secondary">
           <Typography variant="overline">{params.value}</Typography>
         </Button>
       ),
@@ -151,7 +151,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'NOME',
       flex: 1,
       renderCell: (params: any) => (
-        <Button onClick={() => console.log(params.row.id)} color="secondary">
+        <Button color="secondary">
           <Typography variant="overline">{params.value}</Typography>
         </Button>
       ),
@@ -208,7 +208,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'PLACA',
       flex: 1,
       renderCell: (params: any) => (
-        <Button onClick={() => console.log(params.row.id)} color="secondary">
+        <Button color="secondary">
           <Typography variant="overline">{params.value}</Typography>
         </Button>
       ),
