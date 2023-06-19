@@ -16,23 +16,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import FTextFieldDate from '../FTextField/FTextFieldDate'
 import { formateDate, modifyDate } from '@/utils/formatDate'
 
-interface IDriver {
-  id: number
-  nome: string
-  numeroHabilitacao: string
-  categoriaHabilitacao: string
-  vencimentoHabilitacao: string
-  catergoriaHabilitacao?: string
-}
-
-interface IDriverModalProps {
-  isOpen: boolean
-  deleteDriver: (id: number) => void
-  handleModal: () => void
-  createDriver: (driver: IDriver) => void
-  updateDriver: (driver: IDriver) => void
-  driver: IDriver | null
-}
+import { IDriverProps, IDriverModalProps } from '@/@types/driverModalTypes'
 
 const DriverModal = ({
   isOpen,
@@ -42,7 +26,7 @@ const DriverModal = ({
   updateDriver,
   driver,
 }: IDriverModalProps) => {
-  const methods = useForm<IDriver>()
+  const methods = useForm<IDriverProps>()
   const theme = useTheme()
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -56,7 +40,7 @@ const DriverModal = ({
     handleModal()
   }
 
-  const handleCreateDriver = (data: IDriver) => {
+  const handleCreateDriver = (data: IDriverProps) => {
     if (driver) {
       const update = { ...data, id: driver.id }
 
