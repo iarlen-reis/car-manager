@@ -10,11 +10,7 @@ import AddIcon from '@mui/icons-material/Add'
 
 import React from 'react'
 
-interface IMenuToolsProps {
-  handleOpenModal: () => void
-  textButton: string
-  description: string
-}
+import { IMenuToolsProps } from '@/@types/components/IMenuToolsTypes'
 
 const MenuTools = ({
   handleOpenModal,
