@@ -1,13 +1,16 @@
 'use client'
-import { Container } from '@mui/material'
+
+import { useThemeContext } from '@/contexts/ThemeContext'
+import { Box, Button } from '@mui/material'
+
 export default function Home() {
+  const { toggleTheme } = useThemeContext()
+
   return (
-    <Container maxWidth="xl">
-      <div>
-        <h1 className="bg-red-600">
-          Gerencie seus clientes de forma facil e eficiente.
-        </h1>
-      </div>
-    </Container>
+    <Box>
+      <Button variant="outlined" color="primary" onClick={toggleTheme}>
+        Alterar Tema!
+      </Button>
+    </Box>
   )
 }
