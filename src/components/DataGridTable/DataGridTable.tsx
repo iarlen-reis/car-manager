@@ -32,7 +32,9 @@ const DataGridTable = ({
 
   updatedColumns[1].renderCell = (params: GridCellParams) => (
     <Button
-      onClick={() => handleShow(params.row.id)}
+      onClick={() => {
+        handleShow(params.row.id)
+      }}
       color="secondary"
       sx={{
         width: '100%',
@@ -66,7 +68,6 @@ const DataGridTable = ({
         }}
         onClick={() => {
           handleShow(params.row.id)
-          handleOpenModal()
         }}
       >
         <SearchIcon color="success" />
@@ -88,7 +89,9 @@ const DataGridTable = ({
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={() => handleDelete(params.row.id)}
+        onClick={() => {
+          handleDelete(params.row.id)
+        }}
       >
         <DeleteIcon color="error" />
       </Button>
