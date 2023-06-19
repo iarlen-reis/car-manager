@@ -82,6 +82,8 @@ const Condutores = () => {
         const newDrivers = oldDrivers?.filter((driver) => driver.id !== id)
 
         queryClient.setQueryData(['drivers'], newDrivers)
+
+        setIsOpenModal(false)
       },
     },
   )
@@ -93,6 +95,7 @@ const Condutores = () => {
       onSuccess: (data) => {
         if (data.data) {
           setDriver(data.data)
+          setIsOpenModal(true)
         }
       },
     },
@@ -122,6 +125,7 @@ const Condutores = () => {
           return driver
         })
         queryClient.setQueryData(['drivers'], newDrivers)
+        setIsOpenModal(false)
       },
     },
   )
