@@ -3,9 +3,7 @@ import React from 'react'
 import { Container } from '@mui/material'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-interface IContainerGlobalProps {
-  children: React.ReactNode
-}
+import { IContainerGlobalProps } from '@/@types/components/IContainerGlobalTypes'
 
 const client = new QueryClient()
 
