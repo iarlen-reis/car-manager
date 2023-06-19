@@ -12,22 +12,10 @@ import CloseIcon from '@mui/icons-material/Close'
 import { FormProvider, useForm } from 'react-hook-form'
 import FTwoTextFields from '../FTextField/FTwoTextFields'
 
-interface IVehiclesProps {
-  id: number
-  placa: string
-  marcaModelo: string
-  anoFabricacao: number
-  kmAtual: number
-}
-
-interface IVehicleModalProps {
-  isOpen: boolean
-  vehicle: IVehiclesProps | null
-  handleModal: () => void
-  deleteVehicle: (id: number) => void
-  createVehicle: (vehicle: IVehiclesProps) => void
-  updateVehicle: (vehicle: IVehiclesProps) => void
-}
+import {
+  IVehiclesProps,
+  IVehicleModalProps,
+} from '@/@types/modals/vehiclesModalTypes'
 
 const VehicleModal = ({
   vehicle,
