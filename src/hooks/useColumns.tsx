@@ -151,9 +151,9 @@ const useColumns = (): IUseColumns => {
       headerName: 'Número de Habilitação',
       width: 260,
       renderCell: (params: any) => (
-        <Button onClick={() => console.log(params.row.id)} color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
-        </Button>
+        <Typography variant="overline" color={palette.secondary.dark}>
+          {params.value}
+        </Typography>
       ),
     },
     {
@@ -161,9 +161,9 @@ const useColumns = (): IUseColumns => {
       headerName: 'Categoria',
       width: 180,
       renderCell: (params: any) => (
-        <Button onClick={() => console.log(params.row.id)} color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
-        </Button>
+        <Typography variant="overline" color={palette.secondary.dark}>
+          {params.value}
+        </Typography>
       ),
     },
     {
@@ -171,9 +171,9 @@ const useColumns = (): IUseColumns => {
       headerName: 'Vencimento',
       width: 250,
       renderCell: (params: any) => (
-        <Button onClick={() => console.log(params.row.id)} color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
-        </Button>
+        <Typography variant="overline" color={palette.secondary.dark}>
+          {params.value}
+        </Typography>
       ),
     },
   ]
