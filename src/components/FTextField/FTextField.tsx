@@ -1,12 +1,8 @@
 import React from 'react'
-import { TextField, TextFieldProps } from '@mui/material'
+import { TextField } from '@mui/material'
 import { useFormContext, Controller } from 'react-hook-form'
 
-type FTextFieldProps = {
-  name: string
-  label: string
-  rules?: Object
-} & Omit<TextFieldProps, 'name'>
+import { FTextFieldProps } from '@/@types/components/IFTextField'
 
 const FTextField: React.FC<FTextFieldProps> = ({
   name,

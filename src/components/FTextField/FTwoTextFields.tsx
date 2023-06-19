@@ -1,18 +1,8 @@
 import React from 'react'
-import { Box, TextField, TextFieldProps } from '@mui/material'
+import { Box, TextField } from '@mui/material'
 import { useFormContext, Controller } from 'react-hook-form'
 
-type IFTwoTextFields = {
-  width: string
-  width2: string
-  name: string
-  name2: string
-  label: string
-  label2: string
-  rules?: Object
-  disabled?: boolean
-  disabled2?: boolean
-} & Omit<TextFieldProps, 'name'>
+import { IFTwoTextFieldsProps } from '@/@types/components/IFTwoTextFields'
 
 const FTwoTextFields = ({
   width,
@@ -25,7 +15,7 @@ const FTwoTextFields = ({
   disabled = false,
   disabled2 = false,
   ...rest
-}: IFTwoTextFields) => {
+}: IFTwoTextFieldsProps) => {
   const { control } = useFormContext()
 
   return (

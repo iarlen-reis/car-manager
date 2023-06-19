@@ -1,11 +1,8 @@
 import React from 'react'
-import { TextField, TextFieldProps } from '@mui/material'
+import { TextField } from '@mui/material'
 import { useFormContext, Controller } from 'react-hook-form'
 
-type FTextFieldDateProps = {
-  name: string
-  rules?: Object
-} & Omit<TextFieldProps, 'name'>
+import { FTextFieldDateProps } from '@/@types/components/IFTextFieldDate'
 
 const FTextFieldDate: React.FC<FTextFieldDateProps> = ({
   name,
