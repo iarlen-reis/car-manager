@@ -10,6 +10,8 @@ type IFTwoTextFields = {
   label: string
   label2: string
   rules?: Object
+  disabled?: boolean
+  disabled2?: boolean
 } & Omit<TextFieldProps, 'name'>
 
 const FTwoTextFields = ({
@@ -20,6 +22,8 @@ const FTwoTextFields = ({
   label,
   label2,
   rules,
+  disabled = false,
+  disabled2 = false,
   ...rest
 }: IFTwoTextFields) => {
   const { control } = useFormContext()
@@ -44,6 +48,7 @@ const FTwoTextFields = ({
             inputRef={ref}
             {...inputProps}
             {...rest}
+            disabled={disabled}
           />
         )}
       />
@@ -65,6 +70,7 @@ const FTwoTextFields = ({
             inputRef={ref}
             {...inputProps}
             {...rest}
+            disabled={disabled2}
           />
         )}
       />
