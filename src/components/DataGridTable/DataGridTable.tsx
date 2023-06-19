@@ -13,12 +13,14 @@ interface IDataGridTableProps {
   rows: any[] | undefined
   loading: boolean
   handleShow: (id: number) => void
-  deleteMutation: (id: number) => void
+  handleDelete: (id: number) => void
+  handleOpenModal: () => void
 }
 
 const DataGridTable = ({
   handleShow,
-  deleteMutation,
+  handleDelete,
+  handleOpenModal,
   columns,
   rows,
   loading,
@@ -62,7 +64,10 @@ const DataGridTable = ({
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={() => handleShow(params.row.id)}
+        onClick={() => {
+          handleShow(params.row.id)
+          handleOpenModal()
+        }}
       >
         <SearchIcon color="success" />
       </Button>
@@ -83,7 +88,7 @@ const DataGridTable = ({
           alignItems: 'center',
           justifyContent: 'center',
         }}
-        onClick={() => deleteMutation(params.row.id)}
+        onClick={() => handleDelete(params.row.id)}
       >
         <DeleteIcon color="error" />
       </Button>
