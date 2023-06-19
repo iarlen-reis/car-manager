@@ -55,7 +55,6 @@ const MenuTools = ({
         onClick={handleOpenModal}
         sx={{
           color: theme.palette.primary.light,
-          width: isSmall ? '120px' : isMedium ? '180px' : '180px',
         }}
       >
         <Typography
