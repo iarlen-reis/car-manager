@@ -3,12 +3,7 @@ import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
 
-interface IListItemLinkProps {
-  text: string
-  Icon: React.ElementType
-  to: string
-  onclick: () => void
-}
+import { IListItemLinkProps } from '@/@types/components/IListItemLinkTypes'
 
 const ListItemLink = ({ text, Icon, to, onclick }: IListItemLinkProps) => {
   const router = useRouter()
