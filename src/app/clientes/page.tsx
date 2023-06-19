@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Box } from '@mui/material'
 import MenuTools from '@/components/MenuTools/MenuTools'
 import ClientModal from '@/components/Modals/ClientModal'
-import DataGridTable from '@/components/DataGrid/DataGridTable'
+import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/utils/api'
 import useColumns from '@/hooks/useColumns'
@@ -27,6 +27,7 @@ const Cliente = () => {
 
   const queryClient = useQueryClient()
 
+  // get all clients: Busca todos clientes
   const { data: clientes, isFetching } = useQuery(
     ['clients'],
     async () => {
@@ -40,7 +41,52 @@ const Cliente = () => {
     },
   )
 
-  const deleteClient = useMutation(
+  // create a new client: Cria um novo cliente
+  const { mutate: createClient, isLoading: isLoadingCreate } = useMutation(
+    (client: IClient) => api.post('/cliente', client),
+    {
+      onSuccess: (data, variables) => {
+        const client = JSON.parse(data.config.data)
+
+        const clientOlds = queryClient.getQueryData<IClient[]>(['clients'])
+
+        if (clientOlds) {
+          const newClients = [
+            ...clientOlds,
+            { ...client, id: clientOlds.length },
+          ]
+
+          queryClient.setQueryData(['clients'], newClients)
+        }
+      },
+    },
+  )
+
+  // update a client: Atualiza um cliente.
+  const { mutate: updateClient } = useMutation(
+    (updatedClient: IClient) =>
+      api.put(`/cliente/${updatedClient.id}`, updatedClient),
+    {
+      onSuccess: (data, updatedClient) => {
+        const clientUpdated = JSON.parse(data.config.data)
+
+        queryClient.setQueryData<IClient[] | undefined>(
+          ['clients'],
+          (oldData) => {
+            if (oldData) {
+              return oldData.map((client: IClient) =>
+                client.id === clientUpdated.id ? clientUpdated : client,
+              )
+            }
+            return oldData
+          },
+        )
+      },
+    },
+  )
+
+  // delete a client: Deleta um cliente
+  const { mutate: deleteClient } = useMutation(
     (id: number) => {
       return api.delete(`Cliente/${id}`, {
         data: { id },
@@ -61,6 +107,7 @@ const Cliente = () => {
     },
   )
 
+  // get a client: busca um cliente
   const { mutate: clientSearch } = useMutation(
     (id: number) => {
       return api.get<IClient>(`/cliente/${id}`)
@@ -92,8 +139,9 @@ const Cliente = () => {
       />
 
       <DataGridTable
+        handleOpenModal={handleOpenModal}
         handleShow={clientSearch}
-        deleteMutation={deleteClient.mutate}
+        handleDelete={deleteClient}
         columns={clientColumns}
         rows={clientes}
         loading={isFetching}
@@ -101,9 +149,12 @@ const Cliente = () => {
 
       <ClientModal
         isOpen={openModal}
-        handleCloseModal={handleOpenModal}
+        isLoadingCreate={isLoadingCreate}
+        handleModal={handleOpenModal}
         client={clientSearchData}
-        deleteMutation={deleteClient.mutate}
+        createClient={createClient}
+        updateClient={updateClient}
+        deleteClient={deleteClient}
       />
     </Box>
   )
