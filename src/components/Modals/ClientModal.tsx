@@ -13,27 +13,7 @@ import FTextField from '../FTextField/FTextField'
 import FTwoTextFields from '../FTextField/FTwoTextFields'
 import { FormProvider, useForm } from 'react-hook-form'
 
-interface IClient {
-  nome: string
-  numeroDocumento: string
-  tipoDocumento: string
-  cidade: string
-  uf: string
-  bairro: string
-  logradouro: string
-  numero: string
-  id: number
-}
-
-interface IModalProps {
-  isOpen: boolean
-  isLoadingCreate: boolean
-  client: IClient | null
-  handleModal: () => void
-  createClient: (client: IClient) => void
-  updateClient: (client: IClient) => void
-  deleteClient: (id: number) => void
-}
+import { IClientProps, IClientModalProps } from '@/@types/clientModalTypes'
 
 const ClientModal = ({
   isOpen,
@@ -43,10 +23,10 @@ const ClientModal = ({
   createClient,
   updateClient,
   client,
-}: IModalProps) => {
+}: IClientModalProps) => {
   const theme = useTheme()
 
-  const methods = useForm<IClient>()
+  const methods = useForm<IClientProps>()
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
@@ -59,7 +39,7 @@ const ClientModal = ({
     handleModal()
   }
 
-  const handleCreateClient = (data: IClient) => {
+  const handleCreateClient = (data: IClientProps) => {
     if (client && client.id) {
       updateClient({ ...data, id: client.id })
       methods.reset()
