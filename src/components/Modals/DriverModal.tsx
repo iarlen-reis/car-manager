@@ -16,7 +16,10 @@ import { FormProvider, useForm } from 'react-hook-form'
 import FTextFieldDate from '../FTextField/FTextFieldDate'
 import { formateDate, modifyDate } from '@/utils/formatDate'
 
-import { IDriverProps, IDriverModalProps } from '@/@types/driverModalTypes'
+import {
+  IDriverModalProps,
+  IDriverProps,
+} from '@/@types/modals/driverModalTypes'
 
 const DriverModal = ({
   isOpen,

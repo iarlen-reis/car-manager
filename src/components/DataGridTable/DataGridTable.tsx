@@ -126,7 +126,6 @@ const DataGridTable = ({
 
   const columnsSuperSmall = columnStartSuperSmall.concat(columnsEndSuperSmall)
 
-  console.log(columnsSuperSmall)
   return (
     <Box
       component={Paper}
