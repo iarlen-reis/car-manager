@@ -9,23 +9,17 @@ import useColumns from '@/hooks/useColumns'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import DriverModal from '@/components/Modals/DriverModal'
 
-interface IDriver {
-  id: number
-  nome: string
-  numeroHabilitacao: string
-  categoriaHabilitacao: string
-  vencimentoHabilitacao: string
-}
+import { IDriverProps } from '@/@types/modals/driverModalTypes'
 
 const Condutores = () => {
   const { driverColumns } = useColumns()
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
-  const [driver, setDriver] = useState<IDriver | null>(null)
+  const [driver, setDriver] = useState<IDriverProps | null>(null)
   const queryClient = useQueryClient()
 
   // get all driver: busca todos condutores
   const { data: drivers, isLoading } = useQuery(['drivers'], async () => {
-    const response = await api.get<IDriver[]>('/condutor')
+    const response = await api.get<IDriverProps[]>('/condutor')
 
     response.data.map(
       (driver) =>
@@ -39,14 +33,14 @@ const Condutores = () => {
 
   // create a new driver: Criar um novo condutor
   const { mutate: createDriver } = useMutation(
-    (driver: IDriver) => api.post('/Condutor', driver),
+    (driver: IDriverProps) => api.post('/Condutor', driver),
     {
       onSuccess: (data) => {
-        const driver = JSON.parse(data.config.data) as IDriver
+        const driver = JSON.parse(data.config.data) as IDriverProps
 
         driver.vencimentoHabilitacao = formateDate(driver.vencimentoHabilitacao)
 
-        const driverOlds = queryClient.getQueryData<IDriver[]>(['drivers'])
+        const driverOlds = queryClient.getQueryData<IDriverProps[]>(['drivers'])
 
         if (driverOlds) {
           const newClients = [
@@ -77,7 +71,7 @@ const Condutores = () => {
         const parsedData = JSON.parse(data.config.data)
         const id = parsedData.id
 
-        const oldDrivers = queryClient.getQueryData<IDriver[]>(['drivers'])
+        const oldDrivers = queryClient.getQueryData<IDriverProps[]>(['drivers'])
 
         const newDrivers = oldDrivers?.filter((driver) => driver.id !== id)
 
@@ -90,7 +84,7 @@ const Condutores = () => {
 
   // get a driver: Buscando um condutor
   const { mutate: searchDriver } = useMutation(
-    (id: number) => api.get<IDriver>(`/condutor/${id}`),
+    (id: number) => api.get<IDriverProps>(`/condutor/${id}`),
     {
       onSuccess: (data) => {
         if (data.data) {
@@ -105,15 +99,15 @@ const Condutores = () => {
   const { mutate: updateDriver } = useMutation(
     (
       driverUpdated: Pick<
-        IDriver,
+        IDriverProps,
         'id' | 'categoriaHabilitacao' | 'vencimentoHabilitacao'
       >,
     ) => api.put(`/condutor/${driverUpdated.id}`, driverUpdated),
     {
       onSuccess: (data) => {
-        const driverUpdated = JSON.parse(data.config.data) as IDriver
+        const driverUpdated = JSON.parse(data.config.data) as IDriverProps
 
-        const oldDrivers = queryClient.getQueryData<IDriver[]>(['drivers'])
+        const oldDrivers = queryClient.getQueryData<IDriverProps[]>(['drivers'])
 
         const newDrivers = oldDrivers?.map((driver) => {
           if (driver.id === driverUpdated.id) {
