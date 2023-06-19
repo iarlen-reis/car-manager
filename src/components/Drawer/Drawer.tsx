@@ -22,10 +22,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import { useThemeContext } from '@/contexts/ThemeContext'
 import ListItemLink from '../ListItemLink/ListItemLink'
 
-interface DrawerProps {
-  isOpen: boolean
-  handleCloseDrawer: () => void
-}
+import { DrawerProps } from '@/@types/components/IDrawerTypes'
 
 const DrawerAside = ({ isOpen, handleCloseDrawer }: DrawerProps) => {
   const theme = useTheme()
