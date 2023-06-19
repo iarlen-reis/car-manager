@@ -10,15 +10,12 @@ import React, {
 import { LightTheme } from '@/themes/Light'
 import { DarkTheme } from '@/themes/Dark'
 
-interface IThemeContext {
-  themeName: 'light' | 'dark'
-  toggleTheme: () => void
-}
+import {
+  IThemeContextProps,
+  IThemeProviderProps,
+} from '@/@types/contexts/IThemeContextTypes'
 
-interface IThemeProviderProps {
-  children: React.ReactNode
-}
-const ThemeContext = createContext<IThemeContext>({
+const ThemeContext = createContext<IThemeContextProps>({
   themeName: 'light',
   toggleTheme: () => {},
 })
@@ -51,6 +48,6 @@ export const AppThemeProvider = ({ children }: IThemeProviderProps) => {
   )
 }
 
-export const useThemeContext = () => {
+export const useThemeContext = (): IThemeContextProps => {
   return useContext(ThemeContext)
 }
