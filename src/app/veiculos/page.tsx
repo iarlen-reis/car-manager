@@ -9,13 +9,7 @@ import { api } from '@/utils/api'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import VehicleModal from '@/components/Modals/vehicleModal'
 
-interface IVehiclesProps {
-  id: number
-  placa: string
-  marcaModelo: string
-  anoFabricacao: number
-  kmAtual: number
-}
+import { IVehiclesProps } from '@/@types/modals/vehiclesModalTypes'
 
 const Veiculos = () => {
   const queryClient = useQueryClient()
