@@ -8,21 +8,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/utils/api'
 import useColumns from '@/hooks/useColumns'
 
-interface IClient {
-  id: number
-  nome: string
-  numeroDocumento: string
-  tipoDocumento: string
-  cidade: string
-  uf: string
-  bairro: string
-  logradouro: string
-  numero: string
-}
+import { IClientProps } from '@/@types/modals/clientModalTypes'
 
 const Cliente = () => {
   const [openModal, setOpenModal] = useState(false)
-  const [clientSearchData, setClientSearchData] = useState<IClient | null>(null)
+  const [clientSearchData, setClientSearchData] = useState<IClientProps | null>(
+    null,
+  )
   const { clientColumns } = useColumns()
 
   const queryClient = useQueryClient()
@@ -31,7 +23,7 @@ const Cliente = () => {
   const { data: clientes, isFetching } = useQuery(
     ['clients'],
     async () => {
-      const response = await api.get<IClient[] | undefined>('/cliente')
+      const response = await api.get<IClientProps[] | undefined>('/cliente')
 
       return response.data
     },
@@ -43,12 +35,12 @@ const Cliente = () => {
 
   // create a new client: Cria um novo cliente
   const { mutate: createClient, isLoading: isLoadingCreate } = useMutation(
-    (client: IClient) => api.post('/cliente', client),
+    (client: IClientProps) => api.post('/cliente', client),
     {
       onSuccess: (data, variables) => {
         const client = JSON.parse(data.config.data)
 
-        const clientOlds = queryClient.getQueryData<IClient[]>(['clients'])
+        const clientOlds = queryClient.getQueryData<IClientProps[]>(['clients'])
 
         if (clientOlds) {
           const newClients = [
@@ -64,17 +56,17 @@ const Cliente = () => {
 
   // update a client: Atualiza um cliente.
   const { mutate: updateClient } = useMutation(
-    (updatedClient: IClient) =>
+    (updatedClient: IClientProps) =>
       api.put(`/cliente/${updatedClient.id}`, updatedClient),
     {
       onSuccess: (data, updatedClient) => {
         const clientUpdated = JSON.parse(data.config.data)
 
-        queryClient.setQueryData<IClient[] | undefined>(
+        queryClient.setQueryData<IClientProps[] | undefined>(
           ['clients'],
           (oldData) => {
             if (oldData) {
-              return oldData.map((client: IClient) =>
+              return oldData.map((client: IClientProps) =>
                 client.id === clientUpdated.id ? clientUpdated : client,
               )
             }
@@ -96,7 +88,7 @@ const Cliente = () => {
       onSuccess: (data, variables) => {
         const parsedData = JSON.parse(data.config.data)
         const id = parsedData.id
-        const oldClients = queryClient.getQueryData<IClient[]>(['clients'])
+        const oldClients = queryClient.getQueryData<IClientProps[]>(['clients'])
 
         if (oldClients) {
           const newClients = oldClients?.filter((client) => client.id !== id)
@@ -110,7 +102,7 @@ const Cliente = () => {
   // get a client: busca um cliente
   const { mutate: clientSearch } = useMutation(
     (id: number) => {
-      return api.get<IClient>(`/cliente/${id}`)
+      return api.get<IClientProps>(`/cliente/${id}`)
     },
     {
       onSuccess: (data) => {
