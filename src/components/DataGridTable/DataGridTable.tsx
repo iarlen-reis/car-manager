@@ -42,6 +42,7 @@ const DataGridTable = ({
     <Button
       onClick={() => {
         handleShow(params.row.id)
+        handleOpenModal()
       }}
       color="secondary"
       sx={{
@@ -76,6 +77,7 @@ const DataGridTable = ({
         }}
         onClick={() => {
           handleShow(params.row.id)
+          handleOpenModal()
         }}
       >
         <SearchIcon color="success" />
