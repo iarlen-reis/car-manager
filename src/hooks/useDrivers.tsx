@@ -3,6 +3,7 @@ import { api } from '@/utils/api'
 import { formateDate } from '@/utils/formatDate'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 interface IUseDriverProps {
   drivers: IDriverProps[] | undefined
@@ -70,34 +71,31 @@ export const useDrivers = (): IUseDriverProps => {
 
           queryClient.setQueryData(['drivers'], newClients)
         }
+        toast.success('Condutor adicionado com sucesso!')
       },
     },
   )
 
   // update a driver: Atualiza um condutor
   const { mutate: updateDriver } = useMutation(
-    (
-      driverUpdated: Pick<
-        IDriverProps,
-        'id' | 'categoriaHabilitacao' | 'vencimentoHabilitacao'
-      >,
-    ) => api.put(`/condutor/${driverUpdated.id}`, driverUpdated),
+    (driverUpdated: IDriverProps) =>
+      api.put(`/condutor/${driverUpdated.id}`, driverUpdated),
     {
       onSuccess: (data) => {
         const driverUpdated = JSON.parse(data.config.data) as IDriverProps
 
+        driverUpdated.vencimentoHabilitacao = formateDate(
+          driverUpdated.vencimentoHabilitacao,
+        )
+
         const oldDrivers = queryClient.getQueryData<IDriverProps[]>(['drivers'])
 
-        const newDrivers = oldDrivers?.map((driver) => {
-          if (driver.id === driverUpdated.id) {
-            driver.categoriaHabilitacao = driverUpdated.categoriaHabilitacao
-            driver.vencimentoHabilitacao = formateDate(
-              driverUpdated.vencimentoHabilitacao,
-            )
-          }
-          return driver
-        })
+        const newDrivers = oldDrivers?.map((driver) =>
+          driver.id === driverUpdated.id ? driverUpdated : driver,
+        )
+
         queryClient.setQueryData(['drivers'], newDrivers)
+        toast.success('Condutor atualizado com sucesso!')
       },
     },
   )
@@ -120,6 +118,7 @@ export const useDrivers = (): IUseDriverProps => {
         const newDrivers = oldDrivers?.filter((driver) => driver.id !== id)
 
         queryClient.setQueryData(['drivers'], newDrivers)
+        toast.success('Condutor removido com sucesso!')
       },
     },
   )
