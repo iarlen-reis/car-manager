@@ -35,6 +35,7 @@ const Veiculos = () => {
         description="Página de veículos"
         textButton="novo veiculo"
         handleOpenModal={handleOpenModal}
+        isLoading={loadingVehicles}
       />
       <DataGridTable
         columns={vehiclesColumns}

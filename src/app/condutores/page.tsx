@@ -32,6 +32,7 @@ const Condutores = () => {
         description="Página de condutores"
         textButton="novo condutor"
         handleOpenModal={handleOpenModal}
+        isLoading={driversLoading}
       />
       <DataGridTable
         columns={driverColumns}

@@ -34,6 +34,7 @@ const Cliente = () => {
         handleOpenModal={handleOpenModal}
         textButton="Novo cliente"
         description="Página de cliente."
+        isLoading={clientsLoading}
       />
 
       <DataGridTable
