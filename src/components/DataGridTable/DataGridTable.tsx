@@ -3,10 +3,10 @@ import {
   Box,
   Button,
   Paper,
-  CircularProgress,
   Typography,
   useTheme,
   useMediaQuery,
+  Skeleton,
 } from '@mui/material'
 import { DataGrid, GridCellParams } from '@mui/x-data-grid'
 import { v4 as uuidv4 } from 'uuid'
@@ -131,13 +131,15 @@ const DataGridTable = ({
   return (
     <Box
       component={Paper}
-      height={490}
       display="flex"
+      width="100%"
+      height={490}
+      flexDirection="column"
       alignItems="center"
       justifyContent="center"
     >
-      <>
-        {!loading && rows !== undefined ? (
+      {!loading && rows !== undefined ? (
+        <Box width="100%" height="100%">
           <DataGrid
             columns={
               isSuperSmall
@@ -152,10 +154,60 @@ const DataGridTable = ({
             }
             rows={rows}
           />
-        ) : (
-          <CircularProgress size={30} color="secondary" />
-        )}
-      </>
+        </Box>
+      ) : (
+        <Box
+          width="100%"
+          height="100%"
+          display="flex"
+          flexDirection="column"
+          gap={1}
+          padding={1}
+        >
+          <Box width="100%" display="flex" gap={2} padding={0} margin={0}>
+            <Skeleton
+              width="100%"
+              height={40}
+              animation="wave"
+              variant="rounded"
+            />
+            <Skeleton
+              width="100%"
+              height={40}
+              animation="wave"
+              variant="rounded"
+            />
+            <Skeleton
+              width="100%"
+              height={40}
+              animation="wave"
+              variant="rounded"
+            />
+            <Skeleton
+              width="100%"
+              height={40}
+              animation="wave"
+              variant="rounded"
+            />
+          </Box>
+          <Box flex={1} width="100%" display="flex">
+            <Skeleton
+              width="100%"
+              height="100%"
+              animation="wave"
+              variant="rounded"
+            />
+          </Box>
+          <Box width="100%" display="flex">
+            <Skeleton
+              width="100%"
+              height={40}
+              animation="wave"
+              variant="rounded"
+            />
+          </Box>
+        </Box>
+      )}
     </Box>
   )
 }
