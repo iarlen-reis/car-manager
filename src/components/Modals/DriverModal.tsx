@@ -20,6 +20,7 @@ import {
   IDriverModalProps,
   IDriverProps,
 } from '@/@types/modals/driverModalTypes'
+import { toast } from 'react-toastify'
 
 const DriverModal = ({
   isOpen,
@@ -44,20 +45,30 @@ const DriverModal = ({
   }
 
   const handleCreateDriver = (data: IDriverProps) => {
-    if (driver) {
-      const update = { ...data, id: driver.id }
+    if (driver && driver.catergoriaHabilitacao) {
+      if (data.categoriaHabilitacao.includes(driver.catergoriaHabilitacao)) {
+        const update = { ...data, id: driver.id }
 
-      updateDriver(update)
-      methods.reset()
-      handleModal()
-      return
+        updateDriver(update)
+        methods.reset()
+
+        handleModal()
+        return
+      } else {
+        methods.setError('categoriaHabilitacao', {
+          type: 'value',
+        })
+
+        toast.error('Não é possível remover uma categoria.')
+        return
+      }
     }
 
-    const driverUpdated = {
+    const driverCreated = {
       ...data,
     }
 
-    createDriver(driverUpdated)
+    createDriver(driverCreated)
     methods.reset()
     handleModal()
   }
