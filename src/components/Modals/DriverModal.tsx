@@ -62,6 +62,14 @@ const DriverModal = ({
     handleModal()
   }
 
+  const handleDeleteAndCloseModal = () => {
+    if (driver) {
+      deleteDriver(driver.id)
+      methods.reset()
+      handleModal()
+    }
+  }
+
   useEffect(() => {
     if (driver?.id && driver.catergoriaHabilitacao) {
       methods.setValue('nome', driver.nome)
@@ -165,7 +173,7 @@ const DriverModal = ({
                 gap={1}
               >
                 <Button
-                  onClick={() => deleteDriver(driver.id)}
+                  onClick={handleDeleteAndCloseModal}
                   variant="contained"
                   color="error"
                 >
