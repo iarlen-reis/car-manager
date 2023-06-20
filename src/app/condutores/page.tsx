@@ -21,7 +21,7 @@ const Condutores = () => {
   const { driverColumns } = useColumns()
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (): void => {
     setDriver(null)
     setIsOpenModal(!isOpenModal)
   }
