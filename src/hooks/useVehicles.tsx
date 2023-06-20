@@ -2,6 +2,7 @@ import { IVehiclesProps } from '@/@types/modals/vehiclesModalTypes'
 import { api } from '@/utils/api'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 interface IUseVehiclesProps {
   vehicles: IVehiclesProps[] | undefined
@@ -37,6 +38,9 @@ const useVehicles = (): IUseVehiclesProps => {
 
         setVehicle(vehicle)
       },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
+      },
     },
   )
 
@@ -61,6 +65,10 @@ const useVehicles = (): IUseVehiclesProps => {
 
           queryClient.setQueryData(['vehicles'], newVehicles)
         }
+        toast.success('Veículo adicionado com sucesso!')
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
       },
     },
   )
@@ -82,6 +90,10 @@ const useVehicles = (): IUseVehiclesProps => {
           return vehicle
         })
         queryClient.setQueryData(['vehicles'], newVehicles)
+        toast.success('Veículo atualizado com sucesso!')
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
       },
     },
   )
@@ -106,6 +118,10 @@ const useVehicles = (): IUseVehiclesProps => {
         const newVehicles = oldVehicles?.filter((vehicle) => vehicle.id !== id)
 
         queryClient.setQueryData(['vehicles'], newVehicles)
+        toast.success('Veículo deletado com sucesso!')
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
       },
     },
   )
