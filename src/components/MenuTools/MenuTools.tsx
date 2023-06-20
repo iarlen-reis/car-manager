@@ -5,6 +5,7 @@ import {
   useTheme,
   Box,
   useMediaQuery,
+  Skeleton,
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
@@ -16,6 +17,7 @@ const MenuTools = ({
   handleOpenModal,
   textButton,
   description,
+  isLoading,
 }: IMenuToolsProps) => {
   const theme = useTheme()
 
@@ -30,37 +32,45 @@ const MenuTools = ({
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      paddingX={2}
+      paddingX={1}
       paddingY={1}
     >
-      <Box display="flex" alignItems="center" gap={2}>
-        <Typography
-          color={theme.palette.secondary.dark}
-          variant="button"
-          fontSize={isMedium ? '10px' : isSmall ? '13px' : '16px'}
-          textAlign="center"
-        >
-          {description}
-        </Typography>
-      </Box>
-      <Button
-        variant="contained"
-        color="primary"
-        disableElevation
-        startIcon={<AddIcon />}
-        onClick={handleOpenModal}
-        sx={{
-          color: theme.palette.primary.light,
-        }}
-      >
-        <Typography
-          variant="button"
-          color={theme.palette.primary.light}
-          fontSize={isSmall ? '8px' : isMedium ? '13px' : '16px'}
-        >
-          {textButton}
-        </Typography>
-      </Button>
+      {!isLoading ? (
+        <>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Typography
+              color={theme.palette.secondary.dark}
+              variant="button"
+              fontSize={isMedium ? '10px' : isSmall ? '13px' : '16px'}
+              textAlign="center"
+            >
+              {description}
+            </Typography>
+          </Box>
+          <Button
+            variant="contained"
+            color="primary"
+            disableElevation
+            startIcon={<AddIcon />}
+            onClick={handleOpenModal}
+            sx={{
+              color: theme.palette.primary.light,
+            }}
+          >
+            <Typography
+              variant="button"
+              color={theme.palette.primary.light}
+              fontSize={isSmall ? '8px' : isMedium ? '13px' : '16px'}
+            >
+              {textButton}
+            </Typography>
+          </Button>
+        </>
+      ) : (
+        <Box width="100%" height={theme.spacing(6)}>
+          <Skeleton width="100%" height="100%" variant="rounded" />
+        </Box>
+      )}
     </Box>
   )
 }
