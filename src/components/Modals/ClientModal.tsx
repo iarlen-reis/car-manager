@@ -133,6 +133,8 @@ const ClientModal = ({
                 label2="Tipo"
                 width="70%"
                 width2="30%"
+                disabled={!!client}
+                disabled2={!!client}
                 rules={{ required: 'O campo é obrigatório.' }}
               />
               <FTwoTextFields
