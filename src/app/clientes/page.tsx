@@ -23,8 +23,6 @@ const Cliente = () => {
 
   const { clientColumns } = useColumns()
 
-  console.log('oieee')
-
   const handleOpenModal = () => {
     setClient(null)
     setOpenModal(!openModal)
