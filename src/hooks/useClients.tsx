@@ -2,6 +2,7 @@ import { IClientProps } from '@/@types/modals/clientModalTypes'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { api } from '@/utils/api'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 interface IUseClientsProps {
   clientes: IClientProps[] | undefined
@@ -46,6 +47,10 @@ export const useClients = (): IUseClientsProps => {
 
           queryClient.setQueryData(['clients'], newClients)
         }
+        toast.success('Cliente criado com sucesso!')
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
       },
     },
   )
@@ -69,6 +74,7 @@ export const useClients = (): IUseClientsProps => {
             return oldData
           },
         )
+        toast.success('Cliente atualizado com sucesso!')
       },
     },
   )
@@ -91,6 +97,10 @@ export const useClients = (): IUseClientsProps => {
 
           queryClient.setQueryData(['clients'], newClients)
         }
+        toast.success('Cliente deletado com sucesso!')
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
       },
     },
   )
@@ -107,6 +117,9 @@ export const useClients = (): IUseClientsProps => {
         } else {
           setClient(null)
         }
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
       },
     },
   )
