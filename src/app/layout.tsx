@@ -1,10 +1,12 @@
 import './globals.css'
+import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
 import Header from '@/components/Header/Header'
 import { AppThemeProvider } from '@/contexts/ThemeContext'
 import ContainerGlobal from '@/components/ContainerGlobal/ContainerGlobal'
 
 import { Inter } from 'next/font/google'
+import { ToastContainer } from 'react-toastify'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -22,6 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppThemeProvider>
           <ContainerGlobal>
+            <ToastContainer />
             <Header />
             {children}
           </ContainerGlobal>
