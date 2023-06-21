@@ -17,7 +17,9 @@ export const backToStringDate = (data: string) => {
 }
 
 export const modifyDate = (date: string) => {
-  const parts = date.split('/')
+  const dateformated = formateDate(date)
+
+  const parts = dateformated.split('/')
   const day = parts[0]
   const month = parts[1]
   const year = parts[2]
