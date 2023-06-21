@@ -1,20 +1,7 @@
 import React from 'react'
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material'
 import { Controller, useFormContext } from 'react-hook-form'
-
-interface Option {
-  id: string | number
-  nome?: string
-  placa?: string
-}
-
-interface FSelectFieldProps
-  extends Omit<React.ComponentProps<typeof Select>, 'name'> {
-  name: string
-  label: string
-  rules?: Object
-  options: Option[] | []
-}
+import { FSelectFieldProps } from '@/@types/components/IFSelectorFieldTypes'
 
 const FSelectField = ({
   name,
