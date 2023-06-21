@@ -57,6 +57,9 @@ export const useDisplacements = (): IUseDisplacementsProps => {
 
       return response.data
     },
+    {
+      staleTime: 30000,
+    },
   )
 
   // create a displacement: inicia um deslocamento
@@ -65,26 +68,8 @@ export const useDisplacements = (): IUseDisplacementsProps => {
       api.post('/deslocamento/IniciarDeslocamento', displacement),
     {
       onSuccess: (data) => {
-        const displacement = JSON.parse(data.config.data) as IDisplacementsProps
+        queryClient.invalidateQueries(['displacements'])
 
-        displacement.inicioDeslocamento = formateDate(
-          displacement.inicioDeslocamento,
-        )
-
-        const displacementsOlds = queryClient.getQueryData<
-          IDisplacementsProps[]
-        >(['displacements'])
-        if (displacementsOlds) {
-          const newdisplacements = [
-            ...displacementsOlds,
-            {
-              ...displacement,
-              id: displacementsOlds.length,
-            },
-          ]
-
-          queryClient.setQueryData(['displacements'], newdisplacements)
-        }
         toast.success('deslocamento iniciado com sucesso!')
       },
       onError: () => {

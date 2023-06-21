@@ -35,7 +35,11 @@ export const useDrivers = (): IUseDriverProps => {
 
       return response.data
     },
+    {
+      staleTime: 30000,
+    },
   )
+
   // get a driver: Buscando um condutor
   const { mutate: searchDriver } = useMutation(
     (id: number) => api.get<IDriverProps>(`/condutor/${id}`),

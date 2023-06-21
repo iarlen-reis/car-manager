@@ -28,6 +28,9 @@ export const useClients = (): IUseClientsProps => {
 
       return response.data
     },
+    {
+      staleTime: 30000,
+    },
   )
 
   // create a new client: Cria um novo cliente
@@ -35,18 +38,7 @@ export const useClients = (): IUseClientsProps => {
     (client: IClientProps) => api.post('/cliente', client),
     {
       onSuccess: (data, variables) => {
-        const client = JSON.parse(data.config.data)
-
-        const clientOlds = queryClient.getQueryData<IClientProps[]>(['clients'])
-
-        if (clientOlds) {
-          const newClients = [
-            ...clientOlds,
-            { ...client, id: clientOlds.length },
-          ]
-
-          queryClient.setQueryData(['clients'], newClients)
-        }
+        queryClient.invalidateQueries(['clients'])
         toast.success('Cliente criado com sucesso!')
       },
       onError: () => {

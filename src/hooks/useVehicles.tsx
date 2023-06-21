@@ -27,6 +27,9 @@ const useVehicles = (): IUseVehiclesProps => {
 
       return response.data
     },
+    {
+      staleTime: 30000,
+    },
   )
 
   // get a vehicle: Busca um veiculo
@@ -49,22 +52,7 @@ const useVehicles = (): IUseVehiclesProps => {
     (vehicle: IVehiclesProps) => api.post('/veiculo', vehicle),
     {
       onSuccess: (data) => {
-        const vehicle = JSON.parse(data.config.data) as IVehiclesProps
-
-        const vehiclesOlds = queryClient.getQueryData<IVehiclesProps[]>([
-          'vehicles',
-        ])
-        if (vehiclesOlds) {
-          const newVehicles = [
-            ...vehiclesOlds,
-            {
-              ...vehicle,
-              id: vehiclesOlds.length,
-            },
-          ]
-
-          queryClient.setQueryData(['vehicles'], newVehicles)
-        }
+        queryClient.invalidateQueries(['vehicles'])
         toast.success('Veículo adicionado com sucesso!')
       },
       onError: () => {
