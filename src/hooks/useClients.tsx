@@ -4,17 +4,7 @@ import { api } from '@/utils/api'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-interface IUseClientsProps {
-  clientes: IClientProps[] | undefined
-  client: IClientProps | null
-  clientsLoading: boolean
-  isLoadingCreate: boolean
-  createClient: (client: IClientProps) => void
-  updateClient: (client: IClientProps) => void
-  deleteClient: (id: number) => void
-  clientSearch: (id: number) => void
-  setClient: (state: IClientProps | null) => void
-}
+import { IUseClientsProps } from '@/@types/hooks/IUseClientsTypes'
 
 export const useClients = (): IUseClientsProps => {
   const queryClient = useQueryClient()
