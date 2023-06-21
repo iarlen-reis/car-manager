@@ -17,6 +17,7 @@ import {
   IClientProps,
   IClientModalProps,
 } from '@/@types/modals/clientModalTypes'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const ClientModal = ({
   isOpen,
@@ -34,7 +35,7 @@ const ClientModal = ({
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
-  const fontSize = isSmall ? '14px' : isMedium ? '16px' : '18px'
+  const fontSize = isSmall ? '16px' : isMedium ? '16px' : '18px'
 
   const handleCloseAndClearFields = () => {
     methods.reset()
@@ -114,7 +115,7 @@ const ClientModal = ({
                 fontSize={fontSize}
                 color={theme.palette.secondary.dark}
               >
-                Cadastrar cliente
+                {!client ? 'Cadastrar cliente' : 'Editar cliente'}
               </Typography>
               <Button variant="text" onClick={handleModal}>
                 <CloseIcon color="error" />
@@ -167,16 +168,20 @@ const ClientModal = ({
                 variant="contained"
                 color="primary"
                 disabled={!!client}
+                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
               >
                 {isLoadingCreate ? (
                   <CircularProgress size={20} color="secondary" />
                 ) : (
-                  <Typography
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
-                    Adicionar
-                  </Typography>
+                  <>
+                    <Add />
+                    <Typography
+                      color={theme.palette.primary.light}
+                      fontWeight={600}
+                    >
+                      Adicionar
+                    </Typography>
+                  </>
                 )}
               </Button>
             ) : (
@@ -191,7 +196,14 @@ const ClientModal = ({
                   onClick={handleDeleteClient}
                   variant="contained"
                   color="error"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
                 >
+                  <DeleteForever fontSize="small" />
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
@@ -199,7 +211,13 @@ const ClientModal = ({
                     Deletar
                   </Typography>
                 </Button>
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                >
+                  <Edit fontSize="small" />
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}

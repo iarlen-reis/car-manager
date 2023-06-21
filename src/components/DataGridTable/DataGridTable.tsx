@@ -124,7 +124,7 @@ const DataGridTable = ({
   const columnsSmall = columnsStartSmall.concat(columnsEndSmall)
 
   const columnStartSuperSmall = updatedColumns.slice(1, 2)
-  const columnsEndSuperSmall = updatedColumns.slice(-2)
+  const columnsEndSuperSmall = updatedColumns.slice(-1, 0)
 
   const columnsSuperSmall = columnStartSuperSmall.concat(columnsEndSuperSmall)
 
