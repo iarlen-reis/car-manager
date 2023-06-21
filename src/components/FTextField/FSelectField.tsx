@@ -21,6 +21,8 @@ const FSelectField = ({
   label,
   options,
   disabled,
+  required,
+  rules,
 }: FSelectFieldProps) => {
   const { control } = useFormContext()
 
@@ -31,13 +33,17 @@ const FSelectField = ({
         name={name}
         control={control}
         defaultValue=""
-        render={({ field }) => (
+        rules={rules}
+        render={({ field, fieldState: { invalid, error } }) => (
           <Select
             labelId={`${name}-label`}
             label={label}
             {...field}
             disabled={disabled}
+            required={required}
+            error={invalid}
           >
+            <MenuItem value="">Selecionar</MenuItem>
             {options.map((option) => (
               <MenuItem key={option.id} value={option.id}>
                 {option.nome ? option.nome : option.placa}
