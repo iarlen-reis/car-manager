@@ -19,29 +19,10 @@ import { useDrivers } from '@/hooks/useDrivers'
 import useVehicles from '@/hooks/useVehicles'
 import { modifyDate } from '@/utils/formatDate'
 import { toast } from 'react-toastify'
-
-interface IDisplacementsProps {
-  id: number
-  kmInicial: number
-  kmFinal: number
-  inicioDeslocamento: string
-  fimDeslocamento: string
-  checkList: string
-  motivo: string
-  observacao: string
-  idCondutor: number
-  idVeiculo: number
-  idCliente: number
-}
-
-interface IDisplacementModalProps {
-  isOpen: boolean
-  displacement: IDisplacementsProps | null
-  handleOpenModal: () => void
-  createDisplacement: (displacement: IDisplacementsProps) => void
-  updateDisplacement: (displacement: IDisplacementsProps) => void
-  deleteDisplacement: (id: number) => void
-}
+import {
+  IDisplacementsProps,
+  IDisplacementModalProps,
+} from '@/@types/modals/displacementModalTypes'
 
 const DisplacementModal = ({
   isOpen,
