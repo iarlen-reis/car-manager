@@ -4,16 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-interface IUseVehiclesProps {
-  vehicles: IVehiclesProps[] | undefined
-  vehicle: IVehiclesProps | null
-  loadingVehicles: boolean
-  createVehicle: (vehicle: IVehiclesProps) => void
-  searchVehicle: (id: number) => void
-  updateVehicle: (vehicle: IVehiclesProps) => void
-  deleteVehicle: (id: number) => void
-  setVehicle: (state: IVehiclesProps | null) => void
-}
+import { IUseVehiclesProps } from '@/@types/hooks/IUseVehiclesTypes'
 
 const useVehicles = (): IUseVehiclesProps => {
   const [vehicle, setVehicle] = useState<IVehiclesProps | null>(null)
