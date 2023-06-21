@@ -18,6 +18,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { useDrivers } from '@/hooks/useDrivers'
 import useVehicles from '@/hooks/useVehicles'
 import { modifyDate } from '@/utils/formatDate'
+import { toast } from 'react-toastify'
 
 interface IDisplacementsProps {
   id: number
@@ -81,6 +82,22 @@ const DisplacementModal = ({
         ...data,
         id: displacement.id,
         kmFinal: Number(data.kmFinal),
+      }
+
+      if (Number(data.kmFinal) < Number(displacement.kmInicial)) {
+        toast.error('O Km final não pode ser menor que o Km inicial.')
+        methods.setError('kmFinal', {
+          message: 'Valor menor que o Km inicial.',
+        })
+        return
+      }
+
+      if (data.inicioDeslocamento > data.fimDeslocamento) {
+        toast.error('O Fim do deslocamento não pode ser menor que o inicio.')
+        methods.setError('fimDeslocamento', {
+          message: 'Valor menor que a data inicial.',
+        })
+        return
       }
 
       updateDisplacement(updateDisplacementData)
@@ -169,12 +186,14 @@ const DisplacementModal = ({
                 name="idCliente"
                 options={clientes || []}
                 disabled={!!displacement}
+                rules={{ required: 'O campo é obrigatório.' }}
               />
               <FSelectField
                 label="Condutor"
                 name="idCondutor"
                 options={drivers || []}
                 disabled={!!displacement}
+                rules={{ required: 'O campo é obrigatório.' }}
               />
             </Box>
             <Box width="100%" display="flex" alignItems="center" gap={1}>
@@ -183,11 +202,13 @@ const DisplacementModal = ({
                 name="idVeiculo"
                 options={vehicles || []}
                 disabled={!!displacement}
+                rules={{ required: 'O campo é obrigatório.' }}
               />
               <FTextField
                 name="kmInicial"
                 label="KM Inicial"
                 disabled={!!displacement}
+                rules={{ required: 'O campo é obrigatório.' }}
               />
             </Box>
             <FTwoTextFields
@@ -199,6 +220,7 @@ const DisplacementModal = ({
               width2="50%"
               disabled={!!displacement}
               disabled2={!!displacement}
+              rules={{ required: 'O campo é obrigatório.' }}
             />
             <Box display="flex" flexDirection="column">
               <Typography fontSize="10px" variant="button" color="#9e9e9e">
@@ -210,7 +232,11 @@ const DisplacementModal = ({
                 disabled={!!displacement}
               />
             </Box>
-            <FTextField name="observacao" label="Observações" />
+            <FTextField
+              name="observacao"
+              label="Observações"
+              rules={{ required: 'O campo é obrigatório.' }}
+            />
             {displacement && (
               <>
                 <FTextField name="kmFinal" label="KM Final" />
