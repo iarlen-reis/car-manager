@@ -28,7 +28,7 @@ const Deslocamento = () => {
     setDisplacement(null)
   }
   return (
-    <Box width="100%" display="flex" flexDirection="column">
+    <Box width="100%" display="flex" flexDirection="column" gap={3}>
       <MenuTools
         description="Pagina de deslocamento"
         textButton="novo deslocamento"
