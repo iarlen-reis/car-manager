@@ -5,16 +5,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-interface IUseDriverProps {
-  drivers: IDriverProps[] | undefined
-  driver: IDriverProps | null
-  driversLoading: boolean
-  createDriver: (driver: IDriverProps) => void
-  updateDriver: (driver: IDriverProps) => void
-  searchDriver: (id: number) => void
-  deleteDriver: (id: number) => void
-  setDriver: (state: IDriverProps | null) => void
-}
+import { IUseDriverProps } from '@/@types/hooks/IUseDriversTypes'
 
 export const useDrivers = (): IUseDriverProps => {
   const [driver, setDriver] = useState<IDriverProps | null>(null)
