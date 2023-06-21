@@ -3,31 +3,9 @@ import { formateDate } from '@/utils/formatDate'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import { IDisplacementsProps } from '@/@types/modals/displacementModalTypes'
 
-interface IDisplacementsProps {
-  id: number
-  kmInicial: number
-  kmFinal: number
-  inicioDeslocamento: string
-  fimDeslocamento: string
-  checkList: string
-  motivo: string
-  observacao: string
-  idCondutor: number
-  idVeiculo: number
-  idCliente: number
-}
-
-interface IUseDisplacementsProps {
-  displacements: IDisplacementsProps[] | undefined
-  displacement: IDisplacementsProps | null
-  displacementsLoading: boolean
-  createDisplacement: (displacement: IDisplacementsProps) => void
-  searchDisplacement: (id: number) => void
-  setDisplacement: (state: IDisplacementsProps | null) => void
-  updateDisplacement: (displacement: IDisplacementsProps) => void
-  deleteDisplacement: (id: number) => void
-}
+import { IUseDisplacementsProps } from '@/@types/hooks/IUseDisplacementTypes'
 
 export const useDisplacements = (): IUseDisplacementsProps => {
   const [displacement, setDisplacement] = useState<IDisplacementsProps | null>(
