@@ -6,7 +6,6 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
-  Skeleton,
 } from '@mui/material'
 import { DataGrid, GridCellParams } from '@mui/x-data-grid'
 import { v4 as uuidv4 } from 'uuid'
@@ -17,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import SearchIcon from '@mui/icons-material/Search'
 
 import { IDataGridTableProps } from '@/@types/components/IDataGridTableTypes'
+import SkeletonDataGridTable from '../SkeletonDataGridTable/SkeletonDataGridTable'
 
 const DataGridTable = ({
   handleShow,
@@ -138,8 +138,8 @@ const DataGridTable = ({
       alignItems="center"
       justifyContent="center"
     >
-      {!loading && rows !== undefined ? (
-        <Box width="100%" height="100%">
+      <Box width="100%" height="100%">
+        {rows ? (
           <DataGrid
             columns={
               isSuperSmall
@@ -152,62 +152,12 @@ const DataGridTable = ({
                 ? columnsLarge
                 : updatedColumns
             }
-            rows={rows}
+            rows={rows || []}
           />
-        </Box>
-      ) : (
-        <Box
-          width="100%"
-          height="100%"
-          display="flex"
-          flexDirection="column"
-          gap={1}
-          padding={1}
-        >
-          <Box width="100%" display="flex" gap={2} padding={0} margin={0}>
-            <Skeleton
-              width="100%"
-              height={40}
-              animation="wave"
-              variant="rounded"
-            />
-            <Skeleton
-              width="100%"
-              height={40}
-              animation="wave"
-              variant="rounded"
-            />
-            <Skeleton
-              width="100%"
-              height={40}
-              animation="wave"
-              variant="rounded"
-            />
-            <Skeleton
-              width="100%"
-              height={40}
-              animation="wave"
-              variant="rounded"
-            />
-          </Box>
-          <Box flex={1} width="100%" display="flex">
-            <Skeleton
-              width="100%"
-              height="100%"
-              animation="wave"
-              variant="rounded"
-            />
-          </Box>
-          <Box width="100%" display="flex">
-            <Skeleton
-              width="100%"
-              height={40}
-              animation="wave"
-              variant="rounded"
-            />
-          </Box>
-        </Box>
-      )}
+        ) : (
+          <SkeletonDataGridTable />
+        )}
+      </Box>
     </Box>
   )
 }
