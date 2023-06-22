@@ -48,24 +48,7 @@ export const useDrivers = (): IUseDriverProps => {
     (driver: IDriverProps) => api.post('/Condutor', driver),
     {
       onSuccess: (data) => {
-        const driver = JSON.parse(data.config.data) as IDriverProps
-
-        driver.vencimentoHabilitacao = formateDate(driver.vencimentoHabilitacao)
-
-        const driverOlds = queryClient.getQueryData<IDriverProps[]>(['drivers'])
-
-        if (driverOlds) {
-          const newClients = [
-            ...driverOlds,
-            {
-              ...driver,
-              id: driverOlds.length,
-              catergoriaHabilitacao: driver.categoriaHabilitacao,
-            },
-          ]
-
-          queryClient.setQueryData(['drivers'], newClients)
-        }
+        queryClient.invalidateQueries(['drivers'])
         toast.success('Condutor adicionado com sucesso!')
       },
     },
@@ -82,6 +65,8 @@ export const useDrivers = (): IUseDriverProps => {
         driverUpdated.vencimentoHabilitacao = formateDate(
           driverUpdated.vencimentoHabilitacao,
         )
+
+        driverUpdated.catergoriaHabilitacao = driverUpdated.categoriaHabilitacao
 
         const oldDrivers = queryClient.getQueryData<IDriverProps[]>(['drivers'])
 
