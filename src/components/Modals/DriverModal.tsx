@@ -21,7 +21,6 @@ import {
   IDriverProps,
 } from '@/@types/modals/driverModalTypes'
 import { toast } from 'react-toastify'
-import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const DriverModal = ({
   isOpen,
@@ -176,18 +175,7 @@ const DriverModal = ({
               />
             </Box>
             {!driver ? (
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 0.5,
-                }}
-              >
-                <Add fontSize="small" />
+              <Button variant="contained" color="primary" type="submit">
                 <Typography
                   variant="button"
                   color={theme.palette.primary.light}
@@ -208,14 +196,7 @@ const DriverModal = ({
                   onClick={handleDeleteAndCloseModal}
                   variant="contained"
                   color="error"
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 0.5,
-                  }}
                 >
-                  <DeleteForever fontSize="small" />
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
@@ -223,18 +204,7 @@ const DriverModal = ({
                     Deletar
                   </Typography>
                 </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 0.5,
-                  }}
-                >
-                  <Edit fontSize="small" />
+                <Button type="submit" variant="contained" color="primary">
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}

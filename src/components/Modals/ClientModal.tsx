@@ -17,7 +17,6 @@ import {
   IClientProps,
   IClientModalProps,
 } from '@/@types/modals/clientModalTypes'
-import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const ClientModal = ({
   isOpen,
@@ -168,20 +167,16 @@ const ClientModal = ({
                 variant="contained"
                 color="primary"
                 disabled={!!client}
-                sx={{ display: 'flex', alignItems: 'center', gap: 1 }}
               >
                 {isLoadingCreate ? (
                   <CircularProgress size={20} color="secondary" />
                 ) : (
-                  <>
-                    <Add />
-                    <Typography
-                      color={theme.palette.primary.light}
-                      fontWeight={600}
-                    >
-                      Adicionar
-                    </Typography>
-                  </>
+                  <Typography
+                    color={theme.palette.primary.light}
+                    fontWeight={600}
+                  >
+                    Adicionar
+                  </Typography>
                 )}
               </Button>
             ) : (
@@ -196,14 +191,7 @@ const ClientModal = ({
                   onClick={handleDeleteClient}
                   variant="contained"
                   color="error"
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 0.5,
-                  }}
                 >
-                  <DeleteForever fontSize="small" />
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
@@ -211,13 +199,7 @@ const ClientModal = ({
                     Deletar
                   </Typography>
                 </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                >
-                  <Edit fontSize="small" />
+                <Button type="submit" variant="contained" color="primary">
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
