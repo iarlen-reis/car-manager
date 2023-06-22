@@ -1,11 +1,9 @@
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
-import Header from '@/components/Header/Header'
 
-import { ToastContainer } from 'react-toastify'
 import { Poppins, Itim } from 'next/font/google'
-import Footer from '@/components/Footer/Footer'
+import GlobalContainer from '@/components/GlobalContainer/GlobalContainer'
 
 const poppinsFonts = Poppins({
   subsets: ['latin'],
@@ -34,10 +32,7 @@ export default function RootLayout({
       <body
         className={`${poppinsFonts.variable} ${itimFonts.variable} font-poppins`}
       >
-        <Header />
-        {children}
-        <Footer />
-        <ToastContainer />
+        <GlobalContainer>{children}</GlobalContainer>
       </body>
     </html>
   )
