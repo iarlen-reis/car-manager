@@ -23,6 +23,7 @@ import {
   IDisplacementsProps,
   IDisplacementModalProps,
 } from '@/@types/modals/displacementModalTypes'
+import { DeleteForever, Done, Flag } from '@mui/icons-material'
 
 const DisplacementModal = ({
   isOpen,
@@ -213,11 +214,7 @@ const DisplacementModal = ({
                 disabled={!!displacement}
               />
             </Box>
-            <FTextField
-              name="observacao"
-              label="Observações"
-              rules={{ required: 'O campo é obrigatório.' }}
-            />
+            <FTextField name="observacao" label="Observações" />
             {displacement && (
               <>
                 <FTextField name="kmFinal" label="KM Final" />
@@ -234,7 +231,18 @@ const DisplacementModal = ({
             )}
 
             {!displacement ? (
-              <Button variant="contained" color="primary" type="submit">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 0.5,
+                }}
+              >
+                <Flag fontSize="small" />
                 <Typography
                   variant="button"
                   color={theme.palette.primary.light}
@@ -255,7 +263,14 @@ const DisplacementModal = ({
                   variant="contained"
                   color="error"
                   onClick={handleDeleteCloseModalAndClearFields}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
                 >
+                  <DeleteForever fontSize="small" />
                   <Typography
                     variant="button"
                     color={theme.palette.primary.light}
@@ -264,7 +279,18 @@ const DisplacementModal = ({
                     Deletar
                   </Typography>
                 </Button>
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
+                >
+                  <Done fontSize="small" />
                   <Typography
                     variant="button"
                     color={theme.palette.primary.light}
