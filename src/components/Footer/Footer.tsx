@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-emerald-600">
-      <div className="mx-auto my-0 flex w-full max-w-[1536px] items-center justify-between gap-4 p-6">
+    <footer className="mt-10 w-full bg-emerald-600">
+      <div className="mx-auto my-0 flex w-full max-w-[1350px] items-center justify-between gap-4 p-6">
         <div className="flex flex-col gap-4 sm:flex-row">
           <ul className="flex list-none flex-col gap-1">
             <li>
