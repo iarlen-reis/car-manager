@@ -5,9 +5,20 @@ import Header from '@/components/Header/Header'
 import { AppThemeProvider } from '@/contexts/ThemeContext'
 import ContainerGlobal from '@/components/ContainerGlobal/ContainerGlobal'
 
-import { Inter } from 'next/font/google'
 import { ToastContainer } from 'react-toastify'
-const inter = Inter({ subsets: ['latin'] })
+import { Poppins, Itim } from 'next/font/google'
+
+const poppinsFonts = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-poppins',
+})
+
+const itimFonts = Itim({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-itim',
+})
 
 export const metadata = {
   title: 'Car manager',
@@ -21,7 +32,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
+      <body
+        className={`${poppinsFonts.variable} ${itimFonts.variable} font-poppins`}
+      >
         <AppThemeProvider>
           <ContainerGlobal>
             <ToastContainer />
