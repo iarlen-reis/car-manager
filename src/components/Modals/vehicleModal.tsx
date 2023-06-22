@@ -16,6 +16,7 @@ import {
   IVehiclesProps,
   IVehicleModalProps,
 } from '@/@types/modals/vehiclesModalTypes'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const VehicleModal = ({
   vehicle,
@@ -107,7 +108,7 @@ const VehicleModal = ({
                 fontSize={fontSize}
                 color={theme.palette.secondary.dark}
               >
-                Cadastrar veículo
+                {!vehicle ? 'Cadastrar veículo' : 'Editar veículo'}
               </Typography>
               <Button variant="text" onClick={handleCloseAndClearFields}>
                 <CloseIcon color="error" />
@@ -133,7 +134,18 @@ const VehicleModal = ({
               rules={{ required: 'O campo é obrigatório.' }}
             />
             {!vehicle ? (
-              <Button variant="contained" color="primary" type="submit">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 0.5,
+                }}
+              >
+                <Add fontSize="small" />
                 <Typography
                   variant="button"
                   color={theme.palette.primary.light}
@@ -153,7 +165,14 @@ const VehicleModal = ({
                   variant="contained"
                   color="error"
                   onClick={handleDeleteVehicle}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
                 >
+                  <DeleteForever fontSize="small" />
                   <Typography
                     variant="button"
                     color={theme.palette.primary.light}
@@ -162,7 +181,18 @@ const VehicleModal = ({
                     Deletar
                   </Typography>
                 </Button>
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
+                >
+                  <Edit fontSize="small" />
                   <Typography
                     variant="button"
                     color={theme.palette.primary.light}
