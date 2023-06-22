@@ -14,13 +14,14 @@ import FTextField from '../FTextField/FTextField'
 import FTwoTextFields from '../FTextField/FTwoTextFields'
 import { FormProvider, useForm } from 'react-hook-form'
 import FTextFieldDate from '../FTextField/FTextFieldDate'
-import { formateDate, modifyDate } from '@/utils/formatDate'
+import { backToStringDate, formateDate } from '@/utils/formatDate'
 
 import {
   IDriverModalProps,
   IDriverProps,
 } from '@/@types/modals/driverModalTypes'
 import { toast } from 'react-toastify'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const DriverModal = ({
   isOpen,
@@ -49,9 +50,18 @@ const DriverModal = ({
       if (data.categoriaHabilitacao.includes(driver.catergoriaHabilitacao)) {
         const update = { ...data, id: driver.id }
 
+        if (
+          formateDate(update.vencimentoHabilitacao) <
+          new Date().toLocaleDateString()
+        ) {
+          methods.setError('vencimentoHabilitacao', {
+            message: 'Habilitação vencida.',
+          })
+          return
+        }
+
         updateDriver(update)
         methods.reset()
-
         handleModal()
         return
       } else {
@@ -86,11 +96,11 @@ const DriverModal = ({
       methods.setValue('nome', driver.nome)
       methods.setValue('numeroHabilitacao', driver.numeroHabilitacao)
       methods.setValue('categoriaHabilitacao', driver.catergoriaHabilitacao)
-      const dateFormated = formateDate(driver.vencimentoHabilitacao)
 
-      const reformatedDate = modifyDate(dateFormated)
-
-      methods.setValue('vencimentoHabilitacao', reformatedDate)
+      methods.setValue(
+        'vencimentoHabilitacao',
+        backToStringDate(driver.vencimentoHabilitacao),
+      )
     } else {
       methods.reset()
     }
@@ -134,7 +144,7 @@ const DriverModal = ({
                 fontSize={fontSize}
                 color={theme.palette.secondary.dark}
               >
-                Cadastrar condutor
+                {!driver ? 'Cadastrar condutor' : 'Editar condutor'}
               </Typography>
               <Button variant="text" onClick={handleModal}>
                 <CloseIcon color="error" />
@@ -166,7 +176,18 @@ const DriverModal = ({
               />
             </Box>
             {!driver ? (
-              <Button variant="contained" color="primary" type="submit">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 0.5,
+                }}
+              >
+                <Add fontSize="small" />
                 <Typography
                   variant="button"
                   color={theme.palette.primary.light}
@@ -187,7 +208,14 @@ const DriverModal = ({
                   onClick={handleDeleteAndCloseModal}
                   variant="contained"
                   color="error"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
                 >
+                  <DeleteForever fontSize="small" />
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
@@ -195,7 +223,18 @@ const DriverModal = ({
                     Deletar
                   </Typography>
                 </Button>
-                <Button type="submit" variant="contained" color="primary">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 0.5,
+                  }}
+                >
+                  <Edit fontSize="small" />
                   <Typography
                     color={theme.palette.primary.light}
                     fontWeight={600}
