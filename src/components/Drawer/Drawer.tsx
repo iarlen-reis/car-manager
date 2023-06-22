@@ -1,32 +1,18 @@
 'use client'
 import React from 'react'
-import {
-  Drawer,
-  List,
-  useTheme,
-  Box,
-  Avatar,
-  Divider,
-  ListItemText,
-  ListItemIcon,
-  ListItemButton,
-} from '@mui/material'
+import { Drawer, List, useTheme, Box, Avatar, Divider } from '@mui/material'
 
 import HomeIcon from '@mui/icons-material/Home'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import LightModeIcon from '@mui/icons-material/LightMode'
 import GroupIcon from '@mui/icons-material/Group'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
-import { useThemeContext } from '@/contexts/ThemeContext'
 import ListItemLink from '../ListItemLink/ListItemLink'
 
 import { DrawerProps } from '@/@types/components/IDrawerTypes'
 
 const DrawerAside = ({ isOpen, handleCloseDrawer }: DrawerProps) => {
   const theme = useTheme()
-  const { toggleTheme, themeName } = useThemeContext()
 
   return (
     <Drawer variant="temporary" open={isOpen} onClose={handleCloseDrawer}>
@@ -88,14 +74,6 @@ const DrawerAside = ({ isOpen, handleCloseDrawer }: DrawerProps) => {
               to="/deslocamentos"
             />
           </List>
-        </Box>
-        <Box display="flex">
-          <ListItemButton onClick={toggleTheme}>
-            <ListItemIcon>
-              {themeName === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
-            </ListItemIcon>
-            <ListItemText>Alterar tema</ListItemText>
-          </ListItemButton>
         </Box>
       </Box>
     </Drawer>

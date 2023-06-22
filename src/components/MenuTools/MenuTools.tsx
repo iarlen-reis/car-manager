@@ -53,13 +53,9 @@ const MenuTools = ({
             disableElevation
             startIcon={<AddIcon />}
             onClick={handleOpenModal}
-            sx={{
-              color: theme.palette.primary.light,
-            }}
           >
             <Typography
               variant="button"
-              color={theme.palette.primary.light}
               fontSize={isSmall ? '8px' : isMedium ? '13px' : '16px'}
             >
               {textButton}

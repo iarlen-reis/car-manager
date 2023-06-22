@@ -92,7 +92,7 @@ const ClientModal = ({
           <form
             onSubmit={methods.handleSubmit(handleCreateClient)}
             style={{
-              background: theme.palette.background.default,
+              background: '#FFF',
               padding: 20,
               borderRadius: 5,
               display: 'flex',
@@ -100,8 +100,6 @@ const ClientModal = ({
               gap: 15,
               maxWidth: 400,
               width: '100%',
-              border: '1px solid',
-              borderColor: theme.palette.secondary.main,
             }}
           >
             <Box
@@ -110,10 +108,7 @@ const ClientModal = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                fontSize={fontSize}
-                color={theme.palette.secondary.dark}
-              >
+              <Typography fontSize={fontSize}>
                 {!client ? 'Cadastrar cliente' : 'Editar cliente'}
               </Typography>
               <Button variant="text" onClick={handleModal}>
@@ -171,12 +166,7 @@ const ClientModal = ({
                 {isLoadingCreate ? (
                   <CircularProgress size={20} color="secondary" />
                 ) : (
-                  <Typography
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
-                    Adicionar
-                  </Typography>
+                  <Typography fontWeight={600}>Adicionar</Typography>
                 )}
               </Button>
             ) : (
@@ -192,20 +182,10 @@ const ClientModal = ({
                   variant="contained"
                   color="error"
                 >
-                  <Typography
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
-                    Deletar
-                  </Typography>
+                  <Typography fontWeight={600}>Deletar</Typography>
                 </Button>
                 <Button type="submit" variant="contained" color="primary">
-                  <Typography
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
-                    Editar
-                  </Typography>
+                  <Typography fontWeight={600}>Editar</Typography>
                 </Button>
               </Box>
             )}

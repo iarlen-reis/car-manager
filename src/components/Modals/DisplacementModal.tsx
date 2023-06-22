@@ -130,7 +130,7 @@ const DisplacementModal = ({
           <form
             onSubmit={methods.handleSubmit(handleCreateOrUpdateDisplacement)}
             style={{
-              background: theme.palette.background.default,
+              background: '#FFF',
               padding: 20,
               borderRadius: 5,
               display: 'flex',
@@ -139,7 +139,6 @@ const DisplacementModal = ({
               maxWidth: 400,
               width: '100%',
               border: '1px solid',
-              borderColor: theme.palette.secondary.main,
             }}
           >
             <Box
@@ -148,10 +147,7 @@ const DisplacementModal = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                fontSize={fontSize}
-                color={theme.palette.secondary.dark}
-              >
+              <Typography fontSize={fontSize}>
                 {displacement
                   ? 'Encerrar deslocamento'
                   : 'Iniciar deslocamento'}
@@ -231,11 +227,7 @@ const DisplacementModal = ({
 
             {!displacement ? (
               <Button variant="contained" color="primary" type="submit">
-                <Typography
-                  variant="button"
-                  color={theme.palette.primary.light}
-                  fontWeight={600}
-                >
+                <Typography variant="button" fontWeight={600}>
                   Iniciar
                 </Typography>
               </Button>
@@ -252,20 +244,12 @@ const DisplacementModal = ({
                   color="error"
                   onClick={handleDeleteCloseModalAndClearFields}
                 >
-                  <Typography
-                    variant="button"
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
+                  <Typography variant="button" fontWeight={600}>
                     Deletar
                   </Typography>
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
-                  <Typography
-                    variant="button"
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
+                  <Typography variant="button" fontWeight={600}>
                     Encerrar
                   </Typography>
                 </Button>

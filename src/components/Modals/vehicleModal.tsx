@@ -85,7 +85,7 @@ const VehicleModal = ({
           <form
             onSubmit={methods.handleSubmit(handleCreateVehicleOrUpdate)}
             style={{
-              background: theme.palette.background.default,
+              background: '#FFF',
               padding: 20,
               borderRadius: 5,
               display: 'flex',
@@ -94,7 +94,6 @@ const VehicleModal = ({
               maxWidth: 400,
               width: '100%',
               border: '1px solid',
-              borderColor: theme.palette.secondary.main,
             }}
           >
             <Box
@@ -103,10 +102,7 @@ const VehicleModal = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                fontSize={fontSize}
-                color={theme.palette.secondary.dark}
-              >
+              <Typography fontSize={fontSize}>
                 {!vehicle ? 'Cadastrar veículo' : 'Editar veículo'}
               </Typography>
               <Button variant="text" onClick={handleCloseAndClearFields}>
@@ -134,11 +130,7 @@ const VehicleModal = ({
             />
             {!vehicle ? (
               <Button variant="contained" color="primary" type="submit">
-                <Typography
-                  variant="button"
-                  color={theme.palette.primary.light}
-                  fontWeight={600}
-                >
+                <Typography variant="button" fontWeight={600}>
                   Adicionar
                 </Typography>
               </Button>
@@ -154,20 +146,12 @@ const VehicleModal = ({
                   color="error"
                   onClick={handleDeleteVehicle}
                 >
-                  <Typography
-                    variant="button"
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
+                  <Typography variant="button" fontWeight={600}>
                     Deletar
                   </Typography>
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
-                  <Typography
-                    variant="button"
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
+                  <Typography variant="button" fontWeight={600}>
                     Editar
                   </Typography>
                 </Button>

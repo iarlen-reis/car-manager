@@ -121,7 +121,7 @@ const DriverModal = ({
           <form
             onSubmit={methods.handleSubmit(handleCreateDriver)}
             style={{
-              background: theme.palette.background.default,
+              background: '#FFF',
               padding: 20,
               borderRadius: 5,
               display: 'flex',
@@ -130,7 +130,6 @@ const DriverModal = ({
               maxWidth: 400,
               width: '100%',
               border: '1px solid',
-              borderColor: theme.palette.secondary.main,
             }}
           >
             <Box
@@ -139,10 +138,7 @@ const DriverModal = ({
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography
-                fontSize={fontSize}
-                color={theme.palette.secondary.dark}
-              >
+              <Typography fontSize={fontSize}>
                 {!driver ? 'Cadastrar condutor' : 'Editar condutor'}
               </Typography>
               <Button variant="text" onClick={handleModal}>
@@ -176,11 +172,7 @@ const DriverModal = ({
             </Box>
             {!driver ? (
               <Button variant="contained" color="primary" type="submit">
-                <Typography
-                  variant="button"
-                  color={theme.palette.primary.light}
-                  fontWeight={600}
-                >
+                <Typography variant="button" fontWeight={600}>
                   Adicionar
                 </Typography>
               </Button>
@@ -197,20 +189,10 @@ const DriverModal = ({
                   variant="contained"
                   color="error"
                 >
-                  <Typography
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
-                    Deletar
-                  </Typography>
+                  <Typography fontWeight={600}>Deletar</Typography>
                 </Button>
                 <Button type="submit" variant="contained" color="primary">
-                  <Typography
-                    color={theme.palette.primary.light}
-                    fontWeight={600}
-                  >
-                    Editar
-                  </Typography>
+                  <Typography fontWeight={600}>Editar</Typography>
                 </Button>
               </Box>
             )}
