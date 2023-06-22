@@ -7,6 +7,7 @@ import ContainerGlobal from '@/components/ContainerGlobal/ContainerGlobal'
 
 import { ToastContainer } from 'react-toastify'
 import { Poppins, Itim } from 'next/font/google'
+import Footer from '@/components/Footer/Footer'
 
 const poppinsFonts = Poppins({
   subsets: ['latin'],
@@ -41,6 +42,7 @@ export default function RootLayout({
             <Header />
             {children}
           </ContainerGlobal>
+          <Footer />
         </AppThemeProvider>
       </body>
     </html>
