@@ -1,5 +1,5 @@
 'use client'
-import { Box, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import React, { useState } from 'react'
@@ -16,21 +16,14 @@ const Header = () => {
     setIsOpen(true)
   }
   return (
-    <Box width="100%" display="flex" alignItems="center" height={80}>
-      <Box
-        width="100%"
-        maxWidth={1470}
-        display="flex"
-        alignItems="center"
-        margin="0 auto"
-        gap={2}
-      >
+    <div className="mb-10 flex h-20 w-full items-center justify-center bg-emerald-600 py-5">
+      <div className="flex w-full max-w-[1350px] items-center">
         <Button color="primary" onClick={handleOpenDrawer}>
-          <MenuIcon fontSize="large" color="secondary" />
+          <MenuIcon fontSize="large" sx={{ color: '#FFF' }} />
         </Button>
-      </Box>
+      </div>
       <DrawerAside isOpen={isOpen} handleCloseDrawer={handleCloseDrawer} />
-    </Box>
+    </div>
   )
 }
 
