@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-import { Box } from '@mui/material'
 import MenuTools from '@/components/MenuTools/MenuTools'
 import ClientModal from '@/components/Modals/ClientModal'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
@@ -29,7 +28,7 @@ const Cliente = () => {
   }
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" gap={3}>
+    <div className="flex w-full flex-col items-center justify-center gap-2">
       <MenuTools
         handleOpenModal={handleOpenModal}
         textButton="Novo cliente"
@@ -55,7 +54,7 @@ const Cliente = () => {
         updateClient={updateClient}
         deleteClient={deleteClient}
       />
-    </Box>
+    </div>
   )
 }
 
