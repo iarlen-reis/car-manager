@@ -2,8 +2,6 @@ import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import React from 'react'
 import Header from '@/components/Header/Header'
-import { AppThemeProvider } from '@/contexts/ThemeContext'
-import ContainerGlobal from '@/components/ContainerGlobal/ContainerGlobal'
 
 import { ToastContainer } from 'react-toastify'
 import { Poppins, Itim } from 'next/font/google'
@@ -36,14 +34,10 @@ export default function RootLayout({
       <body
         className={`${poppinsFonts.variable} ${itimFonts.variable} font-poppins`}
       >
-        <AppThemeProvider>
-          <ContainerGlobal>
-            <ToastContainer />
-            <Header />
-            {children}
-          </ContainerGlobal>
-          <Footer />
-        </AppThemeProvider>
+        <Header />
+        {children}
+        <Footer />
+        <ToastContainer />
       </body>
     </html>
   )
