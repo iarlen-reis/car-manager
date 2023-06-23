@@ -21,6 +21,7 @@ import {
   IDriverProps,
 } from '@/@types/modals/driverModalTypes'
 import { toast } from 'react-toastify'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const DriverModal = ({
   isOpen,
@@ -172,9 +173,12 @@ const DriverModal = ({
             </Box>
             {!driver ? (
               <Button variant="contained" color="primary" type="submit">
-                <Typography variant="button" fontWeight={600}>
-                  Adicionar
-                </Typography>
+                <div className="flex items-center justify-center gap-1">
+                  <Add fontSize="small" />
+                  <Typography variant="button" fontWeight={600}>
+                    Adicionar
+                  </Typography>
+                </div>
               </Button>
             ) : (
               <Box
@@ -189,10 +193,16 @@ const DriverModal = ({
                   variant="contained"
                   color="error"
                 >
-                  <Typography fontWeight={600}>Deletar</Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <DeleteForever fontSize="small" />
+                    <Typography fontWeight={600}>Deletar</Typography>
+                  </div>
                 </Button>
                 <Button type="submit" variant="contained" color="primary">
-                  <Typography fontWeight={600}>Editar</Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <Edit fontSize="small" />
+                    <Typography fontWeight={600}>Editar</Typography>
+                  </div>
                 </Button>
               </Box>
             )}
