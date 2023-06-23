@@ -44,10 +44,10 @@ const DataGridTable = ({
         handleShow(params.row.id)
         handleOpenModal()
       }}
-      color="secondary"
       sx={{
         width: '100%',
         height: '100%',
+        color: '#000',
       }}
     >
       <Typography

@@ -1,4 +1,4 @@
-import { Button, Typography, useTheme } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 
 import React from 'react'
 
@@ -39,19 +39,13 @@ interface IUseColumns {
 }
 
 const useColumns = (): IUseColumns => {
-  const { palette } = useTheme()
-
   const clientColumns = [
     {
       field: 'id',
       headerName: 'ID',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography
-          variant="overline"
-          color={palette.secondary.dark}
-          fontWeight="bold"
-        >
+        <Typography variant="overline" color="black" fontWeight="bold">
           {params.value}
         </Typography>
       ),
@@ -61,8 +55,10 @@ const useColumns = (): IUseColumns => {
       headerName: 'NOME',
       flex: 1,
       renderCell: (params: any) => (
-        <Button color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
+        <Button color="inherit">
+          <Typography variant="body1" color="black">
+            {params.value}
+          </Typography>
         </Button>
       ),
     },
@@ -71,7 +67,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'NÚMERO DO DOCUMENTO',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -81,7 +77,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'TIPO',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -91,7 +87,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'CIDADE',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -101,7 +97,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'UF',
       width: 100,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -111,7 +107,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'BAIRRO',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -121,7 +117,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'LOGRADOURO',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -131,7 +127,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'NÚMERO',
       width: 80,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -144,11 +140,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'ID',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography
-          variant="overline"
-          color={palette.secondary.dark}
-          fontWeight="bold"
-        >
+        <Typography variant="overline" color="black" fontWeight="bold">
           {params.value}
         </Typography>
       ),
@@ -159,7 +151,9 @@ const useColumns = (): IUseColumns => {
       flex: 1,
       renderCell: (params: any) => (
         <Button color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
+          <Typography variant="overline" color="black">
+            {params.value}
+          </Typography>
         </Button>
       ),
     },
@@ -168,7 +162,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Número de Habilitação',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -178,7 +172,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Categoria',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -188,7 +182,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Vencimento',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -201,11 +195,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'ID',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography
-          variant="overline"
-          color={palette.secondary.dark}
-          fontWeight="bold"
-        >
+        <Typography variant="overline" color="black" fontWeight="bold">
           {params.value}
         </Typography>
       ),
@@ -216,7 +206,9 @@ const useColumns = (): IUseColumns => {
       flex: 1,
       renderCell: (params: any) => (
         <Button color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
+          <Typography variant="overline" color="black">
+            {params.value}
+          </Typography>
         </Button>
       ),
     },
@@ -225,7 +217,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'MARCA/MODELO',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -235,7 +227,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'ANO DE FABRICAÇÃO',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -245,7 +237,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'KM ATUAL',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -258,11 +250,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'ID',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography
-          variant="overline"
-          color={palette.secondary.dark}
-          fontWeight="bold"
-        >
+        <Typography variant="overline" color="black" fontWeight="bold">
           {params.value}
         </Typography>
       ),
@@ -273,7 +261,9 @@ const useColumns = (): IUseColumns => {
       flex: 1,
       renderCell: (params: any) => (
         <Button color="secondary">
-          <Typography variant="overline">{params.value}</Typography>
+          <Typography variant="overline" color="black">
+            {params.value}
+          </Typography>
         </Button>
       ),
     },
@@ -282,7 +272,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Veículo ID',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -292,7 +282,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Cliente ID',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -302,7 +292,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Inicio do Deslocamento',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
@@ -312,7 +302,7 @@ const useColumns = (): IUseColumns => {
       headerName: 'Fim do Deslocamento',
       flex: 1,
       renderCell: (params: any) => (
-        <Typography variant="overline" color={palette.secondary.dark}>
+        <Typography variant="overline" color="black">
           {params.value}
         </Typography>
       ),
