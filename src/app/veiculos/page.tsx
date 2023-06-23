@@ -30,7 +30,7 @@ const Veiculos = () => {
   }
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" gap={1}>
+    <Box width="100%" display="flex" flexDirection="column" gap={3}>
       <MenuTools
         description="Página de veículos"
         textButton="novo veiculo"

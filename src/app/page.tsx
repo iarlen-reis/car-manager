@@ -1,6 +1,6 @@
-/* eslint-disable import/no-absolute-path */
 import deliveryImage from 'public/deliveryImage.png'
 import Image from 'next/image'
+
 export default function Home() {
   return (
     <div className="mt-4 flex min-h-screen w-full flex-col gap-3 lg:mt-11 lg:grid lg:grid-cols-2 lg:gap-2">

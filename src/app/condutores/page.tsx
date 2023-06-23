@@ -27,7 +27,7 @@ const Condutores = () => {
   }
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" gap={2}>
+    <Box width="100%" display="flex" flexDirection="column" gap={3}>
       <MenuTools
         description="Página de condutores"
         textButton="novo condutor"
