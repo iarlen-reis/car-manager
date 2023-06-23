@@ -16,6 +16,7 @@ import {
   IVehiclesProps,
   IVehicleModalProps,
 } from '@/@types/modals/vehiclesModalTypes'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const VehicleModal = ({
   vehicle,
@@ -130,9 +131,12 @@ const VehicleModal = ({
             />
             {!vehicle ? (
               <Button variant="contained" color="primary" type="submit">
-                <Typography variant="button" fontWeight={600}>
-                  Adicionar
-                </Typography>
+                <div className="flex items-center justify-center gap-1">
+                  <Add fontSize="small" />
+                  <Typography variant="button" fontWeight={600}>
+                    Adicionar
+                  </Typography>
+                </div>
               </Button>
             ) : (
               <Box
@@ -146,14 +150,20 @@ const VehicleModal = ({
                   color="error"
                   onClick={handleDeleteVehicle}
                 >
-                  <Typography variant="button" fontWeight={600}>
-                    Deletar
-                  </Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <DeleteForever fontSize="small" />
+                    <Typography variant="button" fontWeight={600}>
+                      Deletar
+                    </Typography>
+                  </div>
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
-                  <Typography variant="button" fontWeight={600}>
-                    Editar
-                  </Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <Edit fontSize="small" />
+                    <Typography variant="button" fontWeight={600}>
+                      Editar
+                    </Typography>
+                  </div>
                 </Button>
               </Box>
             )}
