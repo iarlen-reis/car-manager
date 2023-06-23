@@ -17,6 +17,7 @@ import {
   IClientProps,
   IClientModalProps,
 } from '@/@types/modals/clientModalTypes'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 const ClientModal = ({
   isOpen,
@@ -166,7 +167,10 @@ const ClientModal = ({
                 {isLoadingCreate ? (
                   <CircularProgress size={20} color="secondary" />
                 ) : (
-                  <Typography fontWeight={600}>Adicionar</Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <Add fontSize="small" />
+                    <Typography fontWeight={600}>Adicionar</Typography>
+                  </div>
                 )}
               </Button>
             ) : (
@@ -182,10 +186,16 @@ const ClientModal = ({
                   variant="contained"
                   color="error"
                 >
-                  <Typography fontWeight={600}>Deletar</Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <DeleteForever fontSize="small" />
+                    <Typography fontWeight={600}>Deletar</Typography>
+                  </div>
                 </Button>
                 <Button type="submit" variant="contained" color="primary">
-                  <Typography fontWeight={600}>Editar</Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <Edit fontSize="small" />
+                    <Typography fontWeight={600}>Editar</Typography>
+                  </div>
                 </Button>
               </Box>
             )}
