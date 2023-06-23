@@ -23,6 +23,7 @@ import {
   IDisplacementsProps,
   IDisplacementModalProps,
 } from '@/@types/modals/displacementModalTypes'
+import { DeleteForever, Done, Flag } from '@mui/icons-material'
 
 const DisplacementModal = ({
   isOpen,
@@ -227,9 +228,12 @@ const DisplacementModal = ({
 
             {!displacement ? (
               <Button variant="contained" color="primary" type="submit">
-                <Typography variant="button" fontWeight={600}>
-                  Iniciar
-                </Typography>
+                <div className="flex items-center justify-center gap-1">
+                  <Flag fontSize="small" />
+                  <Typography variant="button" fontWeight={600}>
+                    Iniciar
+                  </Typography>
+                </div>
               </Button>
             ) : (
               <Box
@@ -244,14 +248,20 @@ const DisplacementModal = ({
                   color="error"
                   onClick={handleDeleteCloseModalAndClearFields}
                 >
-                  <Typography variant="button" fontWeight={600}>
-                    Deletar
-                  </Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <DeleteForever fontSize="small" />
+                    <Typography variant="button" fontWeight={600}>
+                      Deletar
+                    </Typography>
+                  </div>
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
-                  <Typography variant="button" fontWeight={600}>
-                    Encerrar
-                  </Typography>
+                  <div className="flex items-center justify-center gap-1">
+                    <Done fontSize="small" />
+                    <Typography variant="button" fontWeight={600}>
+                      Encerrar
+                    </Typography>
+                  </div>
                 </Button>
               </Box>
             )}
