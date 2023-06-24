@@ -1,5 +1,4 @@
 import {
-  Paper,
   Typography,
   Button,
   useTheme,
@@ -12,41 +11,47 @@ import AddIcon from '@mui/icons-material/Add'
 import React from 'react'
 
 import { IMenuToolsProps } from '@/@types/components/IMenuToolsTypes'
+import Link from 'next/link'
 
 const MenuTools = ({
   handleOpenModal,
   textButton,
-  description,
   isLoading,
+  pagePath,
 }: IMenuToolsProps) => {
   const theme = useTheme()
 
+  const isSuperSmall = useMediaQuery(theme.breakpoints.down('xs'))
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <Box
-      component={Paper}
       width="100%"
       height={theme.spacing(7)}
       display="flex"
-      alignItems="center"
+      alignItems={isSmall ? 'stretch' : 'center'}
       justifyContent="space-between"
-      paddingX={1}
-      paddingY={1}
+      flexDirection={isSmall ? 'column' : 'row'}
+      gap={2}
+      padding={1}
     >
       {!isLoading ? (
         <>
-          <Box display="flex" alignItems="center" gap={2}>
-            <Typography
-              color={theme.palette.secondary.dark}
-              variant="body1"
-              fontSize={isMedium ? '10px' : isSmall ? '13px' : '16px'}
-              textAlign="center"
-              className="font-poppins font-bold text-black"
+          <Box display="flex" alignItems="center" gap={1}>
+            <Link
+              href="/"
+              className="text-xs text-black no-underline transition-all hover:text-emerald-400 sm:text-sm lg:text-base"
             >
-              {description}
-            </Typography>
+              Página inicial
+            </Link>
+            <span className="text-sm text-black">{'>'}</span>
+            <Link
+              href={`/${pagePath}`}
+              className="text-xs font-semibold text-black no-underline sm:text-sm lg:text-base"
+            >
+              {pagePath}
+            </Link>
           </Box>
           <Button
             variant="contained"
@@ -54,10 +59,22 @@ const MenuTools = ({
             disableElevation
             startIcon={<AddIcon />}
             onClick={handleOpenModal}
+            sx={{
+              display: 'flex',
+              alignSelf: 'end',
+            }}
           >
             <Typography
               variant="button"
-              fontSize={isSmall ? '8px' : isMedium ? '13px' : '16px'}
+              fontSize={
+                isSuperSmall
+                  ? '10px'
+                  : isSmall
+                  ? '12px'
+                  : isMedium
+                  ? '14px'
+                  : '18px'
+              }
             >
               {textButton}
             </Typography>
