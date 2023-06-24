@@ -40,9 +40,10 @@ const MenuTools = ({
           <Box display="flex" alignItems="center" gap={2}>
             <Typography
               color={theme.palette.secondary.dark}
-              variant="button"
+              variant="body1"
               fontSize={isMedium ? '10px' : isSmall ? '13px' : '16px'}
               textAlign="center"
+              className="font-poppins font-bold text-black"
             >
               {description}
             </Typography>
