@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import MenuTools from '@/components/MenuTools/MenuTools'
 import useColumns from '@/hooks/useColumns'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
@@ -20,6 +20,8 @@ const Condutores = () => {
   } = useDrivers()
   const { driverColumns } = useColumns()
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+  const theme = useTheme()
+  const isSuperSmall = theme.breakpoints.down('xs')
 
   const handleOpenModal = (): void => {
     setDriver(null)
@@ -27,9 +29,14 @@ const Condutores = () => {
   }
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" gap={3}>
+    <Box
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      gap={isSuperSmall ? 5 : 3}
+    >
       <MenuTools
-        description="Página de condutores"
+        pagePath="condutores"
         textButton="novo condutor"
         handleOpenModal={handleOpenModal}
         isLoading={driversLoading}

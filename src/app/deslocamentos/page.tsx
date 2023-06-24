@@ -5,7 +5,7 @@ import DisplacementModal from '@/components/Modals/DisplacementModal'
 
 import useColumns from '@/hooks/useColumns'
 import { useDisplacements } from '@/hooks/useDisplacements'
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 import React, { useState } from 'react'
 
 const Deslocamento = () => {
@@ -20,7 +20,8 @@ const Deslocamento = () => {
     deleteDisplacement,
   } = useDisplacements()
   const { displacementsColumns } = useColumns()
-
+  const theme = useTheme()
+  const isSuperSmall = theme.breakpoints.down('xs')
   const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleOpenModal = () => {
@@ -28,9 +29,14 @@ const Deslocamento = () => {
     setDisplacement(null)
   }
   return (
-    <Box width="100%" display="flex" flexDirection="column" gap={3}>
+    <Box
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      gap={isSuperSmall ? 5 : 3}
+    >
       <MenuTools
-        description="Pagina de deslocamento"
+        pagePath="deslocamentos"
         textButton="novo deslocamento"
         isLoading={displacementsLoading}
         handleOpenModal={handleOpenModal}

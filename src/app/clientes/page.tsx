@@ -5,7 +5,7 @@ import ClientModal from '@/components/Modals/ClientModal'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import useColumns from '@/hooks/useColumns'
 import { useClients } from '@/hooks/useClients'
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 
 const Cliente = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -22,6 +22,8 @@ const Cliente = () => {
   } = useClients()
 
   const { clientColumns } = useColumns()
+  const theme = useTheme()
+  const isSuperSmall = theme.breakpoints.down('xs')
 
   const handleOpenModal = () => {
     setClient(null)
@@ -29,11 +31,16 @@ const Cliente = () => {
   }
 
   return (
-    <Box width="100%" display="flex" flexDirection="column" gap={3}>
+    <Box
+      width="100%"
+      display="flex"
+      flexDirection="column"
+      gap={isSuperSmall ? 5 : 3}
+    >
       <MenuTools
+        pagePath="clientes"
         handleOpenModal={handleOpenModal}
         textButton="Novo cliente"
-        description="Página de cliente."
         isLoading={clientsLoading}
       />
 
