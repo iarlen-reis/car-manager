@@ -18,6 +18,7 @@ module.exports = {
       fontFamily: {
         poppins: 'var(--font-poppins)',
         itim: 'var(--font-itim)',
+        ysabeau: 'var(--font-ysabeau)',
       },
     },
   },
