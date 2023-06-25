@@ -1,44 +1,9 @@
+import { IUseColumnsProps } from '@/@types/hooks/IUseColumnsTypes'
 import { Button, Typography } from '@mui/material'
 
 import React from 'react'
 
-interface IClientColumns {
-  field: string
-  headerName: string
-  width?: number
-  flex?: number
-  renderCell: (params: any) => React.JSX.Element
-}
-
-interface IDriverColumns {
-  field: string
-  headerName: string
-  width?: number
-  flex?: number
-  renderCell: (params: any) => React.JSX.Element
-}
-
-interface IVehiclesColumns {
-  field: string
-  headerName: string
-  flex: number
-  renderCell: (params: any) => React.JSX.Element
-}
-interface displacementsColumns {
-  field: string
-  headerName: string
-  flex: number
-  renderCell: (params: any) => React.JSX.Element
-}
-
-interface IUseColumns {
-  clientColumns: IClientColumns[]
-  driverColumns: IDriverColumns[]
-  vehiclesColumns: IVehiclesColumns[]
-  displacementsColumns: displacementsColumns[]
-}
-
-const useColumns = (): IUseColumns => {
+const useColumns = (): IUseColumnsProps => {
   const clientColumns = [
     {
       field: 'id',

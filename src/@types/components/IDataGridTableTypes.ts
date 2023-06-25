@@ -1,5 +1,7 @@
+import { IColumnsProps } from '../hooks/IUseColumnsTypes'
+
 export interface IDataGridTableProps {
-  columns: any[]
+  columns: IColumnsProps[]
   rows: any[] | undefined
   loading: boolean
   handleShow: (id: number) => void

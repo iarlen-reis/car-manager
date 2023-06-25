@@ -83,6 +83,7 @@ const DataGridTable = ({
         <SearchIcon color="success" />
       </Button>
     ),
+    key: '300sdasd00000',
   })
 
   updatedColumns.push({
@@ -106,6 +107,7 @@ const DataGridTable = ({
         <DeleteIcon color="error" />
       </Button>
     ),
+    key: '3fdsfsdfsdf',
   })
 
   const columnsStartLarge = updatedColumns.slice(0, 4)
