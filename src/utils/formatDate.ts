@@ -1,9 +1,11 @@
+// transforme date on pattern DD/MM/YYYY
 export const formateDate = (data: string) => {
   const formated = new Date(data)
 
   return formated.toLocaleDateString()
 }
 
+// tranforme date on pattern YYYY-MM-DD
 export const backToStringDate = (data: string) => {
   const datad = new Date(data).toLocaleDateString()
   const partes = datad.split('/')
