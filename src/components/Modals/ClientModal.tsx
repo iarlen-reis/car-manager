@@ -18,6 +18,13 @@ import {
   IClientModalProps,
 } from '@/@types/modals/clientModalTypes'
 import { Add, DeleteForever, Edit } from '@mui/icons-material'
+import {
+  normalizeCnhNumber,
+  normalizeCnpjNumber,
+  normalizeCpfNumber,
+  normalizeRgNumber,
+} from '@/masks/masks'
+import FSelectField from '../FTextField/FSelectField'
 
 const ClientModal = ({
   isOpen,
@@ -37,23 +44,46 @@ const ClientModal = ({
 
   const fontSize = isSmall ? '16px' : isMedium ? '16px' : '18px'
 
-  const handleCloseAndClearFields = () => {
-    methods.reset()
+  const documentWatch = methods.watch('numeroDocumento')
+  const typeDocumentWatch = methods.watch('tipoDocumento')
 
+  const optionsTypeDocument = [
+    {
+      id: 'cpf',
+      nome: 'CPF',
+    },
+    {
+      id: 'cnpj',
+      nome: 'CNPJ',
+    },
+    {
+      id: 'rg',
+      nome: 'RG',
+    },
+    {
+      id: 'cnh',
+      nome: 'CNH',
+    },
+  ]
+
+  const handleCloseModalAndClearFields = () => {
+    methods.reset()
     handleModal()
   }
 
-  const handleCreateClient = (data: IClientProps) => {
+  // Create or update a client: Cria ou atualiza um cliente
+  const handleCreateOrUpdateClient = (data: IClientProps) => {
     if (client && client.id) {
-      updateClient({ ...data, id: client.id })
-      methods.reset()
-      handleCloseAndClearFields()
+      updateClient({
+        ...data,
+        id: client.id,
+      })
+      handleCloseModalAndClearFields()
       return
     }
 
     createClient(data)
-    methods.reset()
-    handleCloseAndClearFields()
+    handleCloseModalAndClearFields()
   }
 
   const handleDeleteClient = () => {
@@ -62,11 +92,29 @@ const ClientModal = ({
       handleModal()
     }
   }
+
+  // Add mask on inputs: Adiciona mascara nos inputs
+  useEffect(() => {
+    if (typeDocumentWatch && typeDocumentWatch.toLowerCase() === 'cpf') {
+      methods.setValue('numeroDocumento', normalizeCpfNumber(documentWatch))
+    }
+    if (typeDocumentWatch && typeDocumentWatch.toLowerCase() === 'cnpj') {
+      methods.setValue('numeroDocumento', normalizeCnpjNumber(documentWatch))
+    }
+    if (typeDocumentWatch && typeDocumentWatch.toLowerCase() === 'rg') {
+      methods.setValue('numeroDocumento', normalizeRgNumber(documentWatch))
+    }
+    if (typeDocumentWatch && typeDocumentWatch.toLowerCase() === 'cnh') {
+      methods.setValue('numeroDocumento', normalizeCnhNumber(documentWatch))
+    }
+  }, [documentWatch, typeDocumentWatch])
+
+  // Load of data of clientes: Carrega todos dados do cliente.
   useEffect(() => {
     if (client) {
       methods.setValue('nome', client.nome)
       methods.setValue('numeroDocumento', client.numeroDocumento)
-      methods.setValue('tipoDocumento', client.tipoDocumento)
+      methods.setValue('tipoDocumento', client.tipoDocumento.toLowerCase())
       methods.setValue('cidade', client.cidade)
       methods.setValue('uf', client.uf)
       methods.setValue('bairro', client.bairro)
@@ -80,7 +128,7 @@ const ClientModal = ({
   return (
     <Modal
       open={isOpen}
-      onClose={handleCloseAndClearFields}
+      onClose={handleCloseModalAndClearFields}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -91,7 +139,7 @@ const ClientModal = ({
       <div>
         <FormProvider {...methods}>
           <form
-            onSubmit={methods.handleSubmit(handleCreateClient)}
+            onSubmit={methods.handleSubmit(handleCreateOrUpdateClient)}
             style={{
               background: '#FFF',
               padding: 20,
@@ -112,7 +160,7 @@ const ClientModal = ({
               <Typography fontSize={fontSize}>
                 {!client ? 'Cadastrar cliente' : 'Editar cliente'}
               </Typography>
-              <Button variant="text" onClick={handleModal}>
+              <Button variant="text" onClick={handleCloseModalAndClearFields}>
                 <CloseIcon color="error" />
               </Button>
             </Box>
@@ -122,17 +170,21 @@ const ClientModal = ({
                 label="Nome"
                 rules={{ required: 'O campo é obrigatório.' }}
               />
-              <FTwoTextFields
-                name="numeroDocumento"
-                name2="tipoDocumento"
-                label="Número do documento"
-                label2="Tipo"
-                width="70%"
-                width2="30%"
-                disabled={!!client}
-                disabled2={!!client}
-                rules={{ required: 'O campo é obrigatório.' }}
-              />
+              <div className="flex w-full items-center gap-1">
+                <div className="w-1/3">
+                  <FSelectField
+                    label="Tipo"
+                    name="tipoDocumento"
+                    options={optionsTypeDocument}
+                    disabled={!!client}
+                  />
+                </div>
+                <FTextField
+                  label="Número do Documento"
+                  name="numeroDocumento"
+                  disabled={!!client}
+                />
+              </div>
               <FTwoTextFields
                 name="cidade"
                 name2="uf"
