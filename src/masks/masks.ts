@@ -8,10 +8,10 @@ export const normalizePhoneNumber = (value: string | undefined) => {
     .replace(/(-\d{4})(\d+?)/, '$1')
 }
 
-export const removeSpecialCharacters = (value) => {
+export const removeSpecialCharacters = (value: string | undefined) => {
   if (!value) return ''
 
-  return value.replace(/[\/\.\-]/g, '')
+  return value.replace(/[\\/\\.\\-]/g, '')
 }
 
 export const normalizeCnpjNumber = (value: string | undefined) => {
