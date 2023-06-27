@@ -52,6 +52,8 @@ export const normalizeLicensePlate = (value: string | undefined) => {
 export const normalizeCnhNumber = (value: string | undefined) => {
   const maxLength = 11 // Número máximo de caracteres na CNH
 
+  if (!value) return ''
+
   const digitsOnly = value.replace(/\D/g, '') // Remove todos os caracteres não numéricos
   const formattedCnh = []
 

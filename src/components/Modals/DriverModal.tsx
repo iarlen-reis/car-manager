@@ -35,7 +35,6 @@ const DriverModal = ({
   const methods = useForm<IDriverProps>()
   const theme = useTheme()
 
-  const licenseCategory = methods.watch('catergoriaHabilitacao')
   const licenseDocument = methods.watch('numeroHabilitacao')
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
@@ -138,13 +137,16 @@ const DriverModal = ({
     if (licenseDocument && licenseDocument.length !== 0) {
       methods.setValue('numeroHabilitacao', normalizeCnhNumber(licenseDocument))
     }
-  }, [licenseDocument, licenseCategory])
+  }, [licenseDocument])
 
   useEffect(() => {
     if (driver?.id && driver.catergoriaHabilitacao) {
       methods.setValue('nome', driver.nome)
       methods.setValue('numeroHabilitacao', driver.numeroHabilitacao)
-      methods.setValue('categoriaHabilitacao', driver.catergoriaHabilitacao)
+      methods.setValue(
+        'categoriaHabilitacao',
+        driver.catergoriaHabilitacao.toLowerCase(),
+      )
 
       methods.setValue(
         'vencimentoHabilitacao',
