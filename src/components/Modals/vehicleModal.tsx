@@ -17,6 +17,7 @@ import {
   IVehicleModalProps,
 } from '@/@types/modals/vehiclesModalTypes'
 import { Add, DeleteForever, Edit } from '@mui/icons-material'
+import { normalizeLicensePlate } from '@/masks/masks'
 
 const VehicleModal = ({
   vehicle,
@@ -31,6 +32,8 @@ const VehicleModal = ({
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
+
+  const placeVehicle = methods.watch('placa')
 
   const fontSize = isSmall ? '14px' : isMedium ? '16px' : '18px'
 
@@ -57,6 +60,10 @@ const VehicleModal = ({
       handleCloseAndClearFields()
     }
   }
+
+  useEffect(() => {
+    methods.setValue('placa', normalizeLicensePlate(placeVehicle))
+  }, [placeVehicle])
 
   useEffect(() => {
     if (vehicle && vehicle.id) {
