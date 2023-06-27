@@ -1,14 +1,17 @@
 'use client'
 import React, { useState } from 'react'
+import { Box, useTheme } from '@mui/material'
+
 import MenuTools from '@/components/MenuTools/MenuTools'
 import ClientModal from '@/components/Modals/ClientModal'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
+
 import useColumns from '@/hooks/useColumns'
 import { useClients } from '@/hooks/useClients'
-import { Box, useTheme } from '@mui/material'
 
 const Cliente = () => {
   const [openModal, setOpenModal] = useState(false)
+
   const {
     clientes,
     clientsLoading,
@@ -22,6 +25,7 @@ const Cliente = () => {
   } = useClients()
 
   const { clientColumns } = useColumns()
+
   const theme = useTheme()
   const isSuperSmall = theme.breakpoints.down('xs')
 

@@ -1,15 +1,17 @@
 'use client'
-
 import React, { useState } from 'react'
 import { Box, useTheme } from '@mui/material'
-import MenuTools from '@/components/MenuTools/MenuTools'
-import useColumns from '@/hooks/useColumns'
+
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
+import MenuTools from '@/components/MenuTools/MenuTools'
 import VehicleModal from '@/components/Modals/vehicleModal'
 
+import useColumns from '@/hooks/useColumns'
 import { useVehicles } from '@/hooks/useVehicles'
 
 const Veiculos = () => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+
   const {
     vehicles,
     loadingVehicles,
@@ -21,8 +23,8 @@ const Veiculos = () => {
     deleteVehicle,
   } = useVehicles()
 
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const { vehiclesColumns } = useColumns()
+
   const theme = useTheme()
   const isSuperSmall = theme.breakpoints.down('xs')
 

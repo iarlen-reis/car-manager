@@ -1,14 +1,17 @@
 'use client'
-import DataGridTable from '@/components/DataGridTable/DataGridTable'
-import MenuTools from '@/components/MenuTools/MenuTools'
-import DisplacementModal from '@/components/Modals/DisplacementModal'
-
-import useColumns from '@/hooks/useColumns'
-import { useDisplacements } from '@/hooks/useDisplacements'
 import { Box, useTheme } from '@mui/material'
 import React, { useState } from 'react'
 
+import DataGridTable from '@/components/DataGridTable/DataGridTable'
+import DisplacementModal from '@/components/Modals/DisplacementModal'
+import MenuTools from '@/components/MenuTools/MenuTools'
+
+import useColumns from '@/hooks/useColumns'
+import { useDisplacements } from '@/hooks/useDisplacements'
+
 const Deslocamento = () => {
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
   const {
     displacements,
     displacementsLoading,
@@ -19,10 +22,11 @@ const Deslocamento = () => {
     updateDisplacement,
     deleteDisplacement,
   } = useDisplacements()
+
   const { displacementsColumns } = useColumns()
+
   const theme = useTheme()
   const isSuperSmall = theme.breakpoints.down('xs')
-  const [isOpenModal, setIsOpenModal] = useState(false)
 
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal)
