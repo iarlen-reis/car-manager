@@ -50,14 +50,22 @@ export const normalizeLicensePlate = (value: string | undefined) => {
 }
 
 export const normalizeCnhNumber = (value: string | undefined) => {
-  const cnhRegex = /^(\d{3})(\d{3})(\d{3})(\d{2})$/
+  const maxLength = 11 // Número máximo de caracteres na CNH
 
-  if (!value) return ''
+  const digitsOnly = value.replace(/\D/g, '') // Remove todos os caracteres não numéricos
+  const formattedCnh = []
 
-  const match = value.replace(/\D/g, '').match(cnhRegex)
-  if (!match) return ''
+  for (let i = 0; i < digitsOnly.length && i < maxLength; i++) {
+    formattedCnh.push(digitsOnly[i])
 
-  return match[1] + '.' + match[2] + '.' + match[3] + '-' + match[4]
+    if (i === 2 || i === 5) {
+      formattedCnh.push('.')
+    } else if (i === 8) {
+      formattedCnh.push('-')
+    }
+  }
+
+  return formattedCnh.join('')
 }
 
 export const normalizeRgNumber = (value: string | undefined) => {
