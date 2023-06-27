@@ -1,4 +1,5 @@
 'use client'
+import React from 'react'
 import {
   Box,
   Button,
@@ -7,16 +8,15 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material'
-import { DataGrid, GridCellParams } from '@mui/x-data-grid'
-import { v4 as uuidv4 } from 'uuid'
 
-import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import SkeletonDataGridTable from '../SkeletonDataGridTable/SkeletonDataGridTable'
+import { DataGrid, GridCellParams } from '@mui/x-data-grid'
+
+import { IDataGridTableProps } from '@/@types/components/IDataGridTableTypes'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import SearchIcon from '@mui/icons-material/Search'
-
-import { IDataGridTableProps } from '@/@types/components/IDataGridTableTypes'
-import SkeletonDataGridTable from '../SkeletonDataGridTable/SkeletonDataGridTable'
 
 const DataGridTable = ({
   handleShow,

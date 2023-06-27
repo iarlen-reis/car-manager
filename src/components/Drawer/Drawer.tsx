@@ -2,14 +2,14 @@
 import React from 'react'
 import { Drawer, List, useTheme, Box, Avatar, Divider } from '@mui/material'
 
+import { DrawerProps } from '@/@types/components/IDrawerTypes'
+
 import HomeIcon from '@mui/icons-material/Home'
 import GroupIcon from '@mui/icons-material/Group'
+import ListItemLink from '../ListItemLink/ListItemLink'
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import AddLocationAltIcon from '@mui/icons-material/AddLocationAlt'
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
-import ListItemLink from '../ListItemLink/ListItemLink'
-
-import { DrawerProps } from '@/@types/components/IDrawerTypes'
 
 const DrawerAside = ({ isOpen, handleCloseDrawer }: DrawerProps) => {
   const theme = useTheme()
