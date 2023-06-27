@@ -1,30 +1,36 @@
 import React, { useEffect } from 'react'
+
 import {
   Box,
   Button,
   Modal,
   Typography,
   CircularProgress,
-  useTheme,
   useMediaQuery,
+  useTheme,
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-import FTextField from '../FTextField/FTextField'
-import FTwoTextFields from '../FTextField/FTwoTextFields'
-import { FormProvider, useForm } from 'react-hook-form'
 
 import {
   IClientProps,
   IClientModalProps,
 } from '@/@types/modals/clientModalTypes'
-import { Add, DeleteForever, Edit } from '@mui/icons-material'
+
 import {
   normalizeCnhNumber,
   normalizeCnpjNumber,
   normalizeCpfNumber,
   normalizeRgNumber,
 } from '@/masks/masks'
+
+import FTextField from '../FTextField/FTextField'
 import FSelectField from '../FTextField/FSelectField'
+import FTwoTextFields from '../FTextField/FTwoTextFields'
+import { optionsTypeDocument } from '@/utils/optionsFSelectField'
+
+import CloseIcon from '@mui/icons-material/Close'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
+
+import { FormProvider, useForm } from 'react-hook-form'
 
 const ClientModal = ({
   isOpen,
@@ -37,34 +43,15 @@ const ClientModal = ({
 }: IClientModalProps) => {
   const theme = useTheme()
 
-  const methods = useForm<IClientProps>()
-
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
   const fontSize = isSmall ? '16px' : isMedium ? '16px' : '18px'
 
+  const methods = useForm<IClientProps>()
+
   const documentWatch = methods.watch('numeroDocumento')
   const typeDocumentWatch = methods.watch('tipoDocumento')
-
-  const optionsTypeDocument = [
-    {
-      id: 'cpf',
-      nome: 'CPF',
-    },
-    {
-      id: 'cnpj',
-      nome: 'CNPJ',
-    },
-    {
-      id: 'rg',
-      nome: 'RG',
-    },
-    {
-      id: 'cnh',
-      nome: 'CNH',
-    },
-  ]
 
   const handleCloseModalAndClearFields = () => {
     methods.reset()
@@ -107,9 +94,9 @@ const ClientModal = ({
     if (typeDocumentWatch && typeDocumentWatch.toLowerCase() === 'cnh') {
       methods.setValue('numeroDocumento', normalizeCnhNumber(documentWatch))
     }
-  }, [documentWatch, typeDocumentWatch])
+  }, [documentWatch, typeDocumentWatch, methods])
 
-  // Load of data of clientes: Carrega todos dados do cliente.
+  // Load all datas of client: Carrega todos dados do cliente.
   useEffect(() => {
     if (client) {
       methods.setValue('nome', client.nome)

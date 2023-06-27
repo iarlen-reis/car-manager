@@ -7,17 +7,20 @@ import {
   useMediaQuery,
   Button,
 } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
-
-import { FormProvider, useForm } from 'react-hook-form'
-import FTwoTextFields from '../FTextField/FTwoTextFields'
 
 import {
   IVehiclesProps,
   IVehicleModalProps,
 } from '@/@types/modals/vehiclesModalTypes'
-import { Add, DeleteForever, Edit } from '@mui/icons-material'
+
 import { normalizeLicensePlate } from '@/masks/masks'
+
+import FTwoTextFields from '../FTextField/FTwoTextFields'
+
+import CloseIcon from '@mui/icons-material/Close'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
+
+import { FormProvider, useForm } from 'react-hook-form'
 
 const VehicleModal = ({
   vehicle,
@@ -27,44 +30,46 @@ const VehicleModal = ({
   handleModal,
   isOpen,
 }: IVehicleModalProps) => {
-  const methods = useForm<IVehiclesProps>()
   const theme = useTheme()
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
-  const placeVehicle = methods.watch('placa')
-
   const fontSize = isSmall ? '14px' : isMedium ? '16px' : '18px'
 
-  const handleCloseAndClearFields = () => {
-    methods.reset()
+  const methods = useForm<IVehiclesProps>()
 
+  const placeVehicle = methods.watch('placa')
+
+  const handleCloseModalAndClearFields = () => {
+    methods.reset()
     handleModal()
   }
 
+  // Create a vehicle or update: Cria um veiculo ou atualiza
   const handleCreateVehicleOrUpdate = (data: IVehiclesProps) => {
     if (vehicle && vehicle.id) {
       updateVehicle(data)
-      handleCloseAndClearFields()
+      handleCloseModalAndClearFields()
       return
     }
 
     createVehicle(data)
-    handleCloseAndClearFields()
+    handleCloseModalAndClearFields()
   }
 
   const handleDeleteVehicle = () => {
     if (vehicle) {
       deleteVehicle(vehicle.id)
-      handleCloseAndClearFields()
+      handleCloseModalAndClearFields()
     }
   }
 
   useEffect(() => {
     methods.setValue('placa', normalizeLicensePlate(placeVehicle))
-  }, [placeVehicle])
+  }, [placeVehicle, methods])
 
+  // load all datas of vehicle: Carrega todos dados de um veiculo
   useEffect(() => {
     if (vehicle && vehicle.id) {
       methods.setValue('placa', vehicle.placa)
@@ -80,7 +85,7 @@ const VehicleModal = ({
   return (
     <Modal
       open={isOpen}
-      onClose={handleCloseAndClearFields}
+      onClose={handleCloseModalAndClearFields}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -113,7 +118,7 @@ const VehicleModal = ({
               <Typography fontSize={fontSize}>
                 {!vehicle ? 'Cadastrar veículo' : 'Editar veículo'}
               </Typography>
-              <Button variant="text" onClick={handleCloseAndClearFields}>
+              <Button variant="text" onClick={handleCloseModalAndClearFields}>
                 <CloseIcon color="error" />
               </Button>
             </Box>

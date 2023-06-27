@@ -7,23 +7,28 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material'
-import { FormProvider, useForm } from 'react-hook-form'
-import FTextField from '../FTextField/FTextField'
-import FTwoTextFields from '../FTextField/FTwoTextFields'
-import FTextFieldDate from '../FTextField/FTextFieldDate'
-import { useClients } from '@/hooks/useClients'
-import FSelectField from '../FTextField/FSelectField'
 
-import CloseIcon from '@mui/icons-material/Close'
-import { useDrivers } from '@/hooks/useDrivers'
-import useVehicles from '@/hooks/useVehicles'
-import { modifyDate } from '@/utils/formatDate'
-import { toast } from 'react-toastify'
 import {
   IDisplacementsProps,
   IDisplacementModalProps,
 } from '@/@types/modals/displacementModalTypes'
+
+import FTextField from '../FTextField/FTextField'
+import FTwoTextFields from '../FTextField/FTwoTextFields'
+import FTextFieldDate from '../FTextField/FTextFieldDate'
+import FSelectField from '../FTextField/FSelectField'
+
+import { toast } from 'react-toastify'
+import CloseIcon from '@mui/icons-material/Close'
 import { DeleteForever, Done, Flag } from '@mui/icons-material'
+
+import { useClients } from '@/hooks/useClients'
+import { useDrivers } from '@/hooks/useDrivers'
+import { useVehicles } from '@/hooks/useVehicles'
+
+import { modifyDate } from '@/utils/formatDate'
+
+import { FormProvider, useForm } from 'react-hook-form'
 
 const DisplacementModal = ({
   isOpen,
@@ -58,6 +63,7 @@ const DisplacementModal = ({
     }
   }
 
+  // Create or update a displacement: Cria ou atualiza um deslocamento
   const handleCreateOrUpdateDisplacement = (data: IDisplacementsProps) => {
     if (displacement && displacement.id) {
       const updateDisplacementData = {
@@ -92,6 +98,7 @@ const DisplacementModal = ({
     handleCloseModalAndClearFields()
   }
 
+  // load all datas of displacement: Carrega todos dados do deslocamento
   useEffect(() => {
     if (displacement && displacement.id) {
       methods.setValue('idCliente', displacement.idCliente)

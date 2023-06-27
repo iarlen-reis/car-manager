@@ -8,21 +8,24 @@ import {
   useMediaQuery,
 } from '@mui/material'
 
-import CloseIcon from '@mui/icons-material/Close'
-
-import FTextField from '../FTextField/FTextField'
-import { FormProvider, useForm } from 'react-hook-form'
-import FTextFieldDate from '../FTextField/FTextFieldDate'
-import { backToStringDate, formateDate } from '@/utils/formatDate'
-
 import {
   IDriverModalProps,
   IDriverProps,
 } from '@/@types/modals/driverModalTypes'
-import { toast } from 'react-toastify'
-import { Add, DeleteForever, Edit } from '@mui/icons-material'
+
 import { normalizeCnhNumber } from '@/masks/masks'
+
+import FTextField from '../FTextField/FTextField'
 import FSelectField from '../FTextField/FSelectField'
+import FTextFieldDate from '../FTextField/FTextFieldDate'
+import { optionsLicenseCategory } from '@/utils/optionsFSelectField'
+
+import { toast } from 'react-toastify'
+import CloseIcon from '@mui/icons-material/Close'
+import { Add, DeleteForever, Edit } from '@mui/icons-material'
+
+import { FormProvider, useForm } from 'react-hook-form'
+import { backToStringDate, dateActual, formateDate } from '@/utils/formatDate'
 
 const DriverModal = ({
   isOpen,
@@ -32,70 +35,29 @@ const DriverModal = ({
   updateDriver,
   driver,
 }: IDriverModalProps) => {
-  const methods = useForm<IDriverProps>()
   const theme = useTheme()
-
-  const licenseDocument = methods.watch('numeroHabilitacao')
 
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isMedium = useMediaQuery(theme.breakpoints.down('md'))
 
   const fontSize = isSmall ? '14px' : isMedium ? '16px' : '18px'
 
-  const optionsLicenseCategory = [
-    {
-      id: 'a',
-      nome: 'A',
-    },
-    {
-      id: 'b',
-      nome: 'B',
-    },
-    {
-      id: 'c',
-      nome: 'C',
-    },
-    {
-      id: 'd',
-      nome: 'D',
-    },
-    {
-      id: 'e',
-      nome: 'E',
-    },
-    {
-      id: 'ab',
-      nome: 'AB',
-    },
-    {
-      id: 'ac',
-      nome: 'AC',
-    },
-    {
-      id: 'ad',
-      nome: 'AD',
-    },
-    {
-      id: 'ae',
-      nome: 'AE',
-    },
-  ]
+  const methods = useForm<IDriverProps>()
 
-  const handleCloseAndClearFields = () => {
+  const licenseDocument = methods.watch('numeroHabilitacao')
+
+  const handleCloseModalAndClearFields = () => {
     methods.reset()
-
     handleModal()
   }
 
+  // Create or update a driver: cria ou atuliza um condutor
   const handleCreateDriver = (data: IDriverProps) => {
     if (driver && driver.catergoriaHabilitacao) {
       if (data.categoriaHabilitacao.includes(driver.catergoriaHabilitacao)) {
         const update = { ...data, id: driver.id }
 
-        if (
-          formateDate(update.vencimentoHabilitacao) <
-          new Date().toLocaleDateString()
-        ) {
+        if (formateDate(update.vencimentoHabilitacao) < dateActual()) {
           methods.setError('vencimentoHabilitacao', {
             message: 'Habilitação vencida.',
           })
@@ -103,8 +65,8 @@ const DriverModal = ({
         }
 
         updateDriver(update)
-        methods.reset()
-        handleModal()
+
+        handleCloseModalAndClearFields()
         return
       } else {
         methods.setError('categoriaHabilitacao', {
@@ -116,20 +78,14 @@ const DriverModal = ({
       }
     }
 
-    const driverCreated = {
-      ...data,
-    }
-
-    createDriver(driverCreated)
-    methods.reset()
-    handleModal()
+    createDriver(data)
+    handleCloseModalAndClearFields()
   }
 
   const handleDeleteAndCloseModal = () => {
     if (driver) {
       deleteDriver(driver.id)
-      methods.reset()
-      handleModal()
+      handleCloseModalAndClearFields()
     }
   }
 
@@ -137,12 +93,13 @@ const DriverModal = ({
     if (licenseDocument && licenseDocument.length !== 0) {
       methods.setValue('numeroHabilitacao', normalizeCnhNumber(licenseDocument))
     }
-  }, [licenseDocument])
+  }, [licenseDocument, methods])
 
   useEffect(() => {
     if (driver?.id && driver.catergoriaHabilitacao) {
       methods.setValue('nome', driver.nome)
       methods.setValue('numeroHabilitacao', driver.numeroHabilitacao)
+
       methods.setValue(
         'categoriaHabilitacao',
         driver.catergoriaHabilitacao.toLowerCase(),
@@ -160,7 +117,7 @@ const DriverModal = ({
   return (
     <Modal
       open={isOpen}
-      onClose={handleCloseAndClearFields}
+      onClose={handleCloseModalAndClearFields}
       sx={{
         display: 'flex',
         alignItems: 'center',
@@ -193,7 +150,7 @@ const DriverModal = ({
               <Typography fontSize={fontSize}>
                 {!driver ? 'Cadastrar condutor' : 'Editar condutor'}
               </Typography>
-              <Button variant="text" onClick={handleModal}>
+              <Button variant="text" onClick={handleCloseModalAndClearFields}>
                 <CloseIcon color="error" />
               </Button>
             </Box>
