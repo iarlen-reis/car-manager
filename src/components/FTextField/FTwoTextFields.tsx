@@ -1,8 +1,9 @@
 import React from 'react'
 import { Box, TextField } from '@mui/material'
-import { useFormContext, Controller } from 'react-hook-form'
 
 import { IFTwoTextFieldsProps } from '@/@types/components/IFTwoTextFieldsTypes'
+
+import { useFormContext, Controller } from 'react-hook-form'
 
 const FTwoTextFields = ({
   width,
