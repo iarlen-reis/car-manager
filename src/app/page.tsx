@@ -14,10 +14,6 @@ export default function Home() {
             <p className="xl:4xl max-w-[420px] font-ysabeau text-2xl font-semibold tracking-wider text-emerald-600 sm:text-3xl">
               Gerenciamento de clientes, codutores e veículos.
             </p>
-            <p className="font-poppins text-base italic text-emerald-700 sm:text-xl xl:text-2xl">
-              de forma <span className="italic underline">fácil</span> e{' '}
-              <span className="italic underline">eficiência.</span>
-            </p>
           </div>
         </div>
       </section>
