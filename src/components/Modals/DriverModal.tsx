@@ -49,7 +49,7 @@ const DriverModal = ({
     },
     {
       id: 'b',
-      nome: 'C',
+      nome: 'B',
     },
     {
       id: 'c',
