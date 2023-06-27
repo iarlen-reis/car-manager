@@ -7,7 +7,7 @@ import useColumns from '@/hooks/useColumns'
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import VehicleModal from '@/components/Modals/vehicleModal'
 
-import useVehicles from '@/hooks/useVehicles'
+import { useVehicles } from '@/hooks/useVehicles'
 
 const Veiculos = () => {
   const {
