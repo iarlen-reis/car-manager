@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   Typography,
   Button,
@@ -6,12 +7,12 @@ import {
   useMediaQuery,
   Skeleton,
 } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
-
-import React from 'react'
 
 import { IMenuToolsProps } from '@/@types/components/IMenuToolsTypes'
+
 import Link from 'next/link'
+
+import AddIcon from '@mui/icons-material/Add'
 
 const MenuTools = ({
   handleOpenModal,

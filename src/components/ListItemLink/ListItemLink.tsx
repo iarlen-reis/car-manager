@@ -1,9 +1,10 @@
 'use client'
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
-import { useRouter, usePathname } from 'next/navigation'
 import React from 'react'
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 
 import { IListItemLinkProps } from '@/@types/components/IListItemLinkTypes'
+
+import { useRouter, usePathname } from 'next/navigation'
 
 const ListItemLink = ({ text, Icon, to, onclick }: IListItemLinkProps) => {
   const router = useRouter()
@@ -11,7 +12,6 @@ const ListItemLink = ({ text, Icon, to, onclick }: IListItemLinkProps) => {
 
   const handleClick = () => {
     onclick()
-
     router.push(to)
   }
   return (

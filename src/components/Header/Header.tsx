@@ -1,10 +1,11 @@
 'use client'
-import { Button } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-
 import React, { useState } from 'react'
+import { Button } from '@mui/material'
+
 import DrawerAside from '../Drawer/Drawer'
 import Link from 'next/link'
+
+import MenuIcon from '@mui/icons-material/Menu'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
