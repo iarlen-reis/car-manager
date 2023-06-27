@@ -215,6 +215,7 @@ const DriverModal = ({
                 <FTextField
                   label="Número Habilitação"
                   name="numeroHabilitacao"
+                  disabled={!!driver}
                 />
               </div>
             </div>
