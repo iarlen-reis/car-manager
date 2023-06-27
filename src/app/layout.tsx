@@ -1,5 +1,6 @@
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
+
 import React from 'react'
 
 import { Poppins, Itim, Ysabeau } from 'next/font/google'
