@@ -1,6 +1,7 @@
 'use client'
 import React, { ReactNode } from 'react'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
 import Footer from '../Footer/Footer'
 import Header from '../Header/Header'
 import { ToastContainer } from 'react-toastify'
