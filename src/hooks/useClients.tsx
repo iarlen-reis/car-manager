@@ -1,10 +1,11 @@
-import { IClientProps } from '@/@types/modals/clientModalTypes'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { api } from '@/utils/api'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { IClientProps } from '@/@types/modals/clientModalTypes'
 import { IUseClientsProps } from '@/@types/hooks/IUseClientsTypes'
+
+import { api } from '@/utils/api'
+import { toast } from 'react-toastify'
 
 export const useClients = (): IUseClientsProps => {
   const queryClient = useQueryClient()
@@ -20,6 +21,25 @@ export const useClients = (): IUseClientsProps => {
     },
     {
       staleTime: 30000,
+    },
+  )
+
+  // get a client: busca um cliente
+  const { mutate: clientSearch } = useMutation(
+    (id: number) => {
+      return api.get<IClientProps>(`/cliente/${id}`)
+    },
+    {
+      onSuccess: (data) => {
+        if (data.data) {
+          setClient(data.data)
+        } else {
+          setClient(null)
+        }
+      },
+      onError: () => {
+        toast.error('Ocorreu um erro, tente novamente mais tarde.')
+      },
     },
   )
 
@@ -80,25 +100,6 @@ export const useClients = (): IUseClientsProps => {
           queryClient.setQueryData(['clients'], newClients)
         }
         toast.success('Cliente deletado com sucesso!')
-      },
-      onError: () => {
-        toast.error('Ocorreu um erro, tente novamente mais tarde.')
-      },
-    },
-  )
-
-  // get a client: busca um cliente
-  const { mutate: clientSearch } = useMutation(
-    (id: number) => {
-      return api.get<IClientProps>(`/cliente/${id}`)
-    },
-    {
-      onSuccess: (data) => {
-        if (data.data) {
-          setClient(data.data)
-        } else {
-          setClient(null)
-        }
       },
       onError: () => {
         toast.error('Ocorreu um erro, tente novamente mais tarde.')

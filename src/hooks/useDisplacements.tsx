@@ -1,11 +1,12 @@
-import { api } from '@/utils/api'
-import { formateDate } from '@/utils/formatDate'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
-import { IDisplacementsProps } from '@/@types/modals/displacementModalTypes'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { IDisplacementsProps } from '@/@types/modals/displacementModalTypes'
 import { IUseDisplacementsProps } from '@/@types/hooks/IUseDisplacementTypes'
+
+import { api } from '@/utils/api'
+import { toast } from 'react-toastify'
+import { formateDate } from '@/utils/formatDate'
 
 export const useDisplacements = (): IUseDisplacementsProps => {
   const [displacement, setDisplacement] = useState<IDisplacementsProps | null>(
@@ -40,6 +41,18 @@ export const useDisplacements = (): IUseDisplacementsProps => {
     },
   )
 
+  // get a displacement: Buscar um deslocamento
+  const { mutate: searchDisplacement } = useMutation(
+    (id: number) => api.get(`/deslocamento/${id}`),
+    {
+      onSuccess: (data) => {
+        const displacement = data.data as IDisplacementsProps
+
+        setDisplacement(displacement)
+      },
+    },
+  )
+
   // create a displacement: inicia um deslocamento
   const { mutate: createDisplacement } = useMutation(
     (displacement: IDisplacementsProps) =>
@@ -52,18 +65,6 @@ export const useDisplacements = (): IUseDisplacementsProps => {
       },
       onError: () => {
         toast.error('Ocorreu um erro, tente novamente.')
-      },
-    },
-  )
-
-  // get a displacement: Buscar um deslocamento
-  const { mutate: searchDisplacement } = useMutation(
-    (id: number) => api.get(`/deslocamento/${id}`),
-    {
-      onSuccess: (data) => {
-        const displacement = data.data as IDisplacementsProps
-
-        setDisplacement(displacement)
       },
     },
   )
@@ -103,6 +104,7 @@ export const useDisplacements = (): IUseDisplacementsProps => {
     },
   )
 
+  // delete a displacement: Deleta um deslocamento
   const { mutate: deleteDisplacement } = useMutation(
     (id: number) =>
       api.delete(`/deslocamento/${id}`, {

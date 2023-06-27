@@ -1,10 +1,11 @@
-import { IVehiclesProps } from '@/@types/modals/vehiclesModalTypes'
-import { api } from '@/utils/api'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { IVehiclesProps } from '@/@types/modals/vehiclesModalTypes'
 import { IUseVehiclesProps } from '@/@types/hooks/IUseVehiclesTypes'
+
+import { api } from '@/utils/api'
+import { toast } from 'react-toastify'
 
 export const useVehicles = (): IUseVehiclesProps => {
   const [vehicle, setVehicle] = useState<IVehiclesProps | null>(null)

@@ -1,11 +1,12 @@
-import { IDriverProps } from '@/@types/modals/driverModalTypes'
-import { api } from '@/utils/api'
-import { formateDate } from '@/utils/formatDate'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
+import { IDriverProps } from '@/@types/modals/driverModalTypes'
 import { IUseDriverProps } from '@/@types/hooks/IUseDriversTypes'
+
+import { api } from '@/utils/api'
+import { toast } from 'react-toastify'
+import { formateDate } from '@/utils/formatDate'
 
 export const useDrivers = (): IUseDriverProps => {
   const [driver, setDriver] = useState<IDriverProps | null>(null)
