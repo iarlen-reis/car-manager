@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 
 import { IUseVehiclesProps } from '@/@types/hooks/IUseVehiclesTypes'
 
-const useVehicles = (): IUseVehiclesProps => {
+export const useVehicles = (): IUseVehiclesProps => {
   const [vehicle, setVehicle] = useState<IVehiclesProps | null>(null)
   const queryClient = useQueryClient()
 
@@ -116,5 +116,3 @@ const useVehicles = (): IUseVehiclesProps => {
     loadingVehicles,
   }
 }
-
-export default useVehicles
