@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Box, useTheme } from '@mui/material'
+import Head from 'next/head'
 
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import MenuTools from '@/components/MenuTools/MenuTools'
@@ -34,35 +35,48 @@ const Condutores = () => {
   }
 
   return (
-    <Box
-      width="100%"
-      display="flex"
-      flexDirection="column"
-      gap={isSuperSmall ? 5 : 3}
-    >
-      <MenuTools
-        pagePath="condutores"
-        textButton="novo condutor"
-        handleOpenModal={handleOpenModal}
-        isLoading={driversLoading}
-      />
-      <DataGridTable
-        columns={driverColumns}
-        rows={drivers}
-        loading={driversLoading}
-        handleShow={searchDriver}
-        handleDelete={deleteDriver}
-        handleOpenModal={handleOpenModal}
-      />
-      <DriverModal
-        handleModal={handleOpenModal}
-        isOpen={isOpenModal}
-        deleteDriver={deleteDriver}
-        createDriver={createDriver}
-        driver={driver}
-        updateDriver={updateDriver}
-      />
-    </Box>
+    <>
+      <Head>
+        <title>Gerenciamento de condutores</title>
+        <meta
+          name="keyworkds"
+          content="listar condutores, criar condutores, editar condutores, deletar condutores"
+        ></meta>
+        <meta
+          name="description"
+          content="Gerencie seus condutores de forma fácil e eficiente"
+        ></meta>
+      </Head>
+      <Box
+        width="100%"
+        display="flex"
+        flexDirection="column"
+        gap={isSuperSmall ? 5 : 3}
+      >
+        <MenuTools
+          pagePath="condutores"
+          textButton="novo condutor"
+          handleOpenModal={handleOpenModal}
+          isLoading={driversLoading}
+        />
+        <DataGridTable
+          columns={driverColumns}
+          rows={drivers}
+          loading={driversLoading}
+          handleShow={searchDriver}
+          handleDelete={deleteDriver}
+          handleOpenModal={handleOpenModal}
+        />
+        <DriverModal
+          handleModal={handleOpenModal}
+          isOpen={isOpenModal}
+          deleteDriver={deleteDriver}
+          createDriver={createDriver}
+          driver={driver}
+          updateDriver={updateDriver}
+        />
+      </Box>
+    </>
   )
 }
 

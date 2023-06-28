@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Box, useTheme } from '@mui/material'
+import Head from 'next/head'
 
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import MenuTools from '@/components/MenuTools/MenuTools'
@@ -34,35 +35,48 @@ const Veiculos = () => {
   }
 
   return (
-    <Box
-      width="100%"
-      display="flex"
-      flexDirection="column"
-      gap={isSuperSmall ? 5 : 3}
-    >
-      <MenuTools
-        pagePath="veiculos"
-        textButton="novo veiculo"
-        handleOpenModal={handleOpenModal}
-        isLoading={loadingVehicles}
-      />
-      <DataGridTable
-        columns={vehiclesColumns}
-        rows={vehicles}
-        loading={loadingVehicles}
-        handleDelete={deleteVehicle}
-        handleOpenModal={handleOpenModal}
-        handleShow={searchVehicle}
-      />
-      <VehicleModal
-        isOpen={isOpenModal}
-        handleModal={handleOpenModal}
-        createVehicle={createVehicle}
-        updateVehicle={updateVehicle}
-        deleteVehicle={deleteVehicle}
-        vehicle={vehicle}
-      />
-    </Box>
+    <>
+      <Head>
+        <title>Gerenciamento de veículos</title>
+        <meta
+          name="keyworkds"
+          content="listar veículos, criar veículos, editar veículos, deletar veículos"
+        ></meta>
+        <meta
+          name="description"
+          content="Gerencie seus veículos de forma fácil e eficiente"
+        ></meta>
+      </Head>
+      <Box
+        width="100%"
+        display="flex"
+        flexDirection="column"
+        gap={isSuperSmall ? 5 : 3}
+      >
+        <MenuTools
+          pagePath="veiculos"
+          textButton="novo veiculo"
+          handleOpenModal={handleOpenModal}
+          isLoading={loadingVehicles}
+        />
+        <DataGridTable
+          columns={vehiclesColumns}
+          rows={vehicles}
+          loading={loadingVehicles}
+          handleDelete={deleteVehicle}
+          handleOpenModal={handleOpenModal}
+          handleShow={searchVehicle}
+        />
+        <VehicleModal
+          isOpen={isOpenModal}
+          handleModal={handleOpenModal}
+          createVehicle={createVehicle}
+          updateVehicle={updateVehicle}
+          deleteVehicle={deleteVehicle}
+          vehicle={vehicle}
+        />
+      </Box>
+    </>
   )
 }
 

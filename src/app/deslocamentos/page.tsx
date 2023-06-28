@@ -1,6 +1,7 @@
 'use client'
 import { Box, useTheme } from '@mui/material'
 import React, { useState } from 'react'
+import Head from 'next/head'
 
 import DataGridTable from '@/components/DataGridTable/DataGridTable'
 import DisplacementModal from '@/components/Modals/DisplacementModal'
@@ -33,35 +34,48 @@ const Deslocamento = () => {
     setDisplacement(null)
   }
   return (
-    <Box
-      width="100%"
-      display="flex"
-      flexDirection="column"
-      gap={isSuperSmall ? 5 : 3}
-    >
-      <MenuTools
-        pagePath="deslocamentos"
-        textButton="novo deslocamento"
-        isLoading={displacementsLoading}
-        handleOpenModal={handleOpenModal}
-      />
-      <DataGridTable
-        columns={displacementsColumns}
-        rows={displacements}
-        loading={displacementsLoading}
-        handleOpenModal={handleOpenModal}
-        handleShow={searchDisplacement}
-        handleDelete={deleteDisplacement}
-      />
-      <DisplacementModal
-        isOpen={isOpenModal}
-        handleOpenModal={handleOpenModal}
-        createDisplacement={createDisplacement}
-        displacement={displacement}
-        updateDisplacement={updateDisplacement}
-        deleteDisplacement={deleteDisplacement}
-      />
-    </Box>
+    <>
+      <Head>
+        <title>Gerenciamento de deslocamentos</title>
+        <meta
+          name="keyworkds"
+          content="listar deslocamentos, iniciar deslocamento, encerrar deslocamento, deletar deslocamento"
+        ></meta>
+        <meta
+          name="description"
+          content="Gerencie seus deslocamento de forma fácil e eficiente"
+        ></meta>
+      </Head>
+      <Box
+        width="100%"
+        display="flex"
+        flexDirection="column"
+        gap={isSuperSmall ? 5 : 3}
+      >
+        <MenuTools
+          pagePath="deslocamentos"
+          textButton="novo deslocamento"
+          isLoading={displacementsLoading}
+          handleOpenModal={handleOpenModal}
+        />
+        <DataGridTable
+          columns={displacementsColumns}
+          rows={displacements}
+          loading={displacementsLoading}
+          handleOpenModal={handleOpenModal}
+          handleShow={searchDisplacement}
+          handleDelete={deleteDisplacement}
+        />
+        <DisplacementModal
+          isOpen={isOpenModal}
+          handleOpenModal={handleOpenModal}
+          createDisplacement={createDisplacement}
+          displacement={displacement}
+          updateDisplacement={updateDisplacement}
+          deleteDisplacement={deleteDisplacement}
+        />
+      </Box>
+    </>
   )
 }
 
