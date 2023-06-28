@@ -38,3 +38,24 @@ export const dateActual = () => {
 
   return date
 }
+
+export const DateParse = (date: string) => {
+  const dataParse = new Date(date)
+
+  return dataParse
+}
+
+export const isAfterDate = (date: string) => {
+  const partesData = date.split('/')
+  const dataFormated = new Date(
+    Number(partesData[2]),
+    Number(partesData[1]) - 1,
+    Number(partesData[0]),
+  )
+
+  if (dataFormated >= new Date()) {
+    return true
+  } else {
+    return false
+  }
+}

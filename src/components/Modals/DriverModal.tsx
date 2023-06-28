@@ -25,7 +25,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import { Add, DeleteForever, Edit } from '@mui/icons-material'
 
 import { FormProvider, useForm } from 'react-hook-form'
-import { backToStringDate, dateActual, formateDate } from '@/utils/formatDate'
+import { backToStringDate, isAfterDate } from '@/utils/formatDate'
 
 const DriverModal = ({
   isOpen,
@@ -57,7 +57,7 @@ const DriverModal = ({
       if (data.categoriaHabilitacao.includes(driver.catergoriaHabilitacao)) {
         const update = { ...data, id: driver.id }
 
-        if (formateDate(update.vencimentoHabilitacao) < dateActual()) {
+        if (!isAfterDate(driver.vencimentoHabilitacao)) {
           methods.setError('vencimentoHabilitacao', {
             message: 'Habilitação vencida.',
           })
