@@ -19,15 +19,16 @@
 - [x] Exibir, criar, atualizar e deletar condutor.
 - [x] Exibir, criar, atualizar e deletar veículo.
 - [x] Exibir, iniciar, encerrar e deletar deslocamento.
+- [x] Responsividade
 
 ## O que foi utilizado?
 
 <ul>
   <li>
-    <b>Material UI:</b> Além de utilizar Material UI nas criações de componentes costumizados, como inputs, os componentes de modal, Drawer e Skeleton foram providos por ele.
+    <b>Material UI:</b> Além de utilizar Material UI nas criações de componentes customizados, como inputs, os componentes de modal, Drawer e Skeleton foram providos por ele.
   </li>
   <li>
-    <b>React Hook Form:</b> Foi utilizado React-Hook-Form para criar inputs costumizados de alta performace, junto aos componentes de inputs do material ui.
+    <b>React Hook Form:</b> Foi utilizado React-Hook-Form para criar inputs customizados de alta performace, junto aos componentes de inputs do material ui.
   </li>
   <li>
     <b>React Query e Axios:</b> Foi utilizado React Query + Axios para fazer as requisições nas API e gerar um cachê dos resultados.
