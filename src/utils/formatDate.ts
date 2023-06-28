@@ -18,6 +18,7 @@ export const backToStringDate = (data: string) => {
   return dataFormatada
 }
 
+// tranforme date on DD-MM-YYYY to pattern YYYY-MM-DD
 export const modifyDate = (date: string) => {
   const dateformated = formateDate(date)
 
@@ -29,4 +30,11 @@ export const modifyDate = (date: string) => {
   const formattedDate = `${year}-${month}-${day}`
 
   return formattedDate
+}
+
+// return the dateActual
+export const dateActual = () => {
+  const date = new Date().toLocaleDateString()
+
+  return date
 }
